@@ -1,0 +1,16 @@
+.container{
+  text-align: center;
+}
+.Degrade {
+  background-image:linear-gradient(to right, #3FBF88, #00bfff);
+  margin: 0;
+  padding: 0;
+}
+.navbar-dropdown {
+background-color: transparent;
+background-image: none;
+}
+.navbar-link {
+background-color: transparent;
+background-image: none;
+}
