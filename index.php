@@ -1,3 +1,6 @@
+<?php
+session_start();
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +14,36 @@
 <div class="Degrade hero is-fullheight">
 <?php
 require('view/viewNav.php');
-require('view/viewForm.php');
+if (isset($_GET['action']))
+{
+	if ($_GET['action'] == 'login') {
+		require('view/viewForm.php');
+	}
+	else if ($_GET['action'] == 'connexion'){
+
+	}
+	else if ($_GET['action'] == 'photo'){
+
+	}
+}
+else if (isset($_GET['mail']) && $_GET['mail'] == 'validation')
+{
+	require('view/viewNotifmail.php');
+	require('view/viewForm.php');
+}
+else if (isset($_GET['login']) && $_GET['mail'] == 'existant')
+{
+	require('view/viewNotiflogin.php');
+	require('view/viewForm.php');
+}
+else if (isset($_GET['mdp']) && $_GET['mdp'] == 'erreur')
+{
+	require('view/viewNotifmdp.php');
+	require('view/viewForm.php');
+}
+else {
+	require('view/viewAccueil.php');
+}
 ?>
   </div>
 	<footer class="footer">

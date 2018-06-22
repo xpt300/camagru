@@ -1,6 +1,6 @@
 <div class = "container">
   <center>
-  <form action="/../controleur/create_account.php" method="post">
+  <form action="./controleur/create_account.php" method="post">
 
         <div class="field" style="width:300px">
     <label class="label has-text-light">Name</label>
