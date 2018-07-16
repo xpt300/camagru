@@ -2,7 +2,7 @@
   <center>
 <div class="notification is-danger">
   <button class="delete" id="delete"></button>
-  Veuillez verifier votre compte par <strong>mail</strong> <i class="fas fa-envelope"></i>.
+  Le <strong>Login</strong> que vous venez de rentrer n'est pas bon.
 </div>
 </center>
 </div>
