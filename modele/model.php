@@ -30,7 +30,7 @@ class user{
         return (-1);
 			}
 		}
-		$_SESSION['user'] = $login;
+
 		// On ajoute une entrée dans la table account
 		$req = $bdd->prepare('INSERT INTO account(prenom, login, mail, mdp, key_user, valider) VALUES (:prenom, :login, :mail, :mdp, :key_user, :valider)');
 		$req->execute(array(

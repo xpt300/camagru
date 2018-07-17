@@ -2,7 +2,8 @@
 
 if (isset($_SESSION["user"])){
     session_destroy();
-    header("refresh:3;url=index.php");
+    unset($_SESSION['user']);
+    header("refresh:2;url=index.php");
 }
 
 ?>

@@ -7,18 +7,7 @@
 </a>
 </div>
 
-<!-- <div id="navbarExampleTransparentExample" class="navbar-menu">
-  <div class="navbar-start">
-    <a class="navbar-item">
-    <?php
-      // if (isset($_SESSION['user']) && valid_user($_SESSION['user']) == 1){
-      if (isset($_SESSION['user'])){
-        ?><label>Hello <?php print($_SESSION['user'])?></label><?php
-      }
-    ?>
-    </a>
-  </div>
-</div> -->
+
 <?php
   if (isset($_SESSION['user'])){
     ?>

@@ -47,7 +47,12 @@ if (isset($_SESSION['user'])){
   }
 }
 else {
-  if (isset($_GET['action']))
+  if (isset($_POST['password_lost'])){
+    if ($_POST['password_lost'] == "ok"){
+      require('view/viewPasswordLost.php');
+    }
+  }
+  else if (isset($_GET['action']))
   {
   	if ($_GET['action'] == 'login') {
   		require('view/viewForm.php');

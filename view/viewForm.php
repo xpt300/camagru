@@ -20,7 +20,6 @@
         <i class="fas fa-check"></i>
       </span>
     </div>
-    <p class="help is-danger">This username is available</p>
   </div>
 
   <div class="field" style="width:300px">
@@ -34,7 +33,6 @@
         <i class="fas fa-exclamation-triangle"></i>
       </span>
     </div>
-    <p class="help is-danger">This email is invalid</p>
   </div>
 
   <div class="field" style="width:300px">
