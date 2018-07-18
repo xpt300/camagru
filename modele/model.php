@@ -60,7 +60,7 @@ class user{
       // Contenu du message de l'email
       $message = '<html>';
       $message .= '<head><title>New account CAMAGRU</title></head>';
-      $message .= '<body><center><p>Bonjour <strong>'.$prenom.'</strong><br />Merci de valider votre email:<br /><a href="http://localhost:8080/camagru/index.php?code='.$key_user.'&id='.$login.'"><strong>VALIDATION</strong></a></p></center></body>';
+      $message .= '<body><center><p>Bonjour <strong>'.$prenom.'</strong><br />Merci de valider votre email:<br /><a href="http://localhost:8080/camagru/index.php?code='.$key_user.'"><strong>VALIDATION</strong></a></p></center></body>';
       $message .= '</html>';
       $message = wordwrap($message, 70, "\r\n");
 
@@ -75,7 +75,7 @@ class user{
       // Contenu du message de l'email
       $message = '<html>';
       $message .= '<head><title>Changement de Password CAMAGRU</title></head>';
-      $message .= '<body><center><p>Bonjour <strong>'.$prenom.'</strong><br />Merci de suire ce lien pour changer votre mot de passe:<br /><a href="http://localhost:8080/camagru/index.php?code='.$key_user.'&id='.$login.'"><strong>CHANGER MOT DE PASSE</strong></a></p></center></body>';
+      $message .= '<body><center><p>Bonjour <strong>'.$prenom.'</strong><br />Merci de suivre ce lien pour changer votre mot de passe:<br /><a href="http://localhost:8080/camagru/index.php?code='.$key_user.'"><strong>CHANGER MOT DE PASSE</strong></a></p></center></body>';
       $message .= '</html>';
       $message = wordwrap($message, 70, "\r\n");
 
@@ -90,7 +90,7 @@ class user{
     return (0);
   }
   // fonction qui valide le check du mail et de la confirmation de compte.
-  function valid_user($user){
+  function valid_user($user, $bdd){
     $reponse = $bdd->query('SELECT valider FROM account WHERE login = "'.$user.'"');
     $donnee = $reponse->fetch();
     if ($donnee['valider'] == 1)
@@ -125,6 +125,19 @@ class user{
        return (1);
      }
      return (0);
+   }
+   function password_lost($mail, $bdd){
+     $reponse_account = $bdd->query('SELECT `prenom`, `mail`, `login`, `mdp`, `key_user` FROM `account` WHERE mail = "'.$mail.'"');
+     $donnees = $reponse_account->fetch();
+     if ($mail == $donnees['mail']){
+       $user_var = new user;
+       if ($user_var->send_mail(2, $donnees['key_user'], $donnees['mail'], $donnees['prenom'], $donnees['login']) == 1) {
+         return (1);
+       }
+     }
+     else {
+       return (0);
+     }
    }
 }
 ?>

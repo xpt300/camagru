@@ -9,6 +9,8 @@
 
 
 <?php
+
+
   if (isset($_SESSION['user'])){
     ?>
     <div class="navbar-end">

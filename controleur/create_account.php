@@ -33,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $user_var = new user;
     $login = htmlspecialchars($login);
     $password = htmlspecialchars($mdp);
+    $mail = htmlspecialchars($mail);
     $array["key_user"] = hash("whirlpool", $password + $login);
     if ($user_var->create_account($prenom, $login, $mail, $mdp, $array["key_user"], $bdd) == 1) {
       if ($user_var->send_mail(1, $array["key_user"], $mail, $prenom, $login) == 1) {

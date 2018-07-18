@@ -52,6 +52,12 @@ else {
       require('view/viewPasswordLost.php');
     }
   }
+  else if (isset($_GET['mail'])){
+    if ($_GET['mail'] == 'ok'){
+      require('view/viewNotifmail.php');
+    }
+    require('view/viewAccueil.php');
+  }
   else if (isset($_GET['action']))
   {
   	if ($_GET['action'] == 'login') {
@@ -66,7 +72,6 @@ else {
   	}
   	else if ($_GET['action'] == 'photo'){
       require('view/viewPhoto.php');
-
   	}
   }
   else if (isset($_GET['mail']))

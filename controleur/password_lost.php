@@ -10,14 +10,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
   }
   catch(PDOException $e)
   {
-        echo 'Erreur : '.$e->getMessage();
+        echo 'Erreur : '.$e->getMessaxge();
         return(0);
   }
   $user_var = new user;
   extract($_POST);
-  $reponse_login = $bdd->query('SELECT')
-  if ($user_var->send_mail(2, $array["key_user"], $mail, $prenom, $login) == 1) {
-    header('Location: ../index.php?login=existant');
+  $mail = htmlspecialchars($mail);
+  if ($user_var->password_lost($mail, $bdd) == 1){
+    header('Location: ../index.php?mail=ok');
+    exit();
+  }
+  else {
+    header('Location: ../index.php?mail=inexistant');
     exit();
   }
 }
