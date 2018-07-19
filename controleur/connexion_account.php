@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $login = htmlspecialchars($_POST['login']);
     $password = htmlspecialchars($_POST['mdp']);
     if ($var->valid_user($login, $bdd) == 0){
-      header('Location: ../index.php?action=connexion&mail=validation');
+      header('Location: ../connexion.php?mail=validation');
       exit();
     }
     $reponse_login = $bdd->query('SELECT login FROM account WHERE login = "'.$login.'"');

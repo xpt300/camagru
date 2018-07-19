@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 
 require_once('./../config/setup.php');
 
@@ -138,6 +138,27 @@ class user{
      else {
        return (0);
      }
+   }
+   function verification_account($bdd, $code){
+     $validate = 0;
+     $reponse_code = $bdd->query('SELECT `key_user` FROM `account`');
+     while ($donnees == $reponse_code->fetch()){
+       if ($code == $donnees['key_user']){
+         $validate = 1;
+         break;
+       }
+     }
+     if ($validate == 1){
+       $reponse_verif = $bdd->query('SELECT `valider` FROM `account` WHERE key_user = "'.$code.'"');
+       $verif = $reponse_verif->fetch();
+       if ($verif['valider'] == 1){
+         return (2);
+       }
+       $reponse = $bdd->prepare('UPDATE account set valider= ? WHERE key_user = ?');
+       $reponse->execute(array(1, $code));
+       return (1);
+     }
+     return (0);
    }
 }
 ?>

@@ -64,7 +64,7 @@
     <div class="navbar-item">
       <div class="field is-grouped">
         <p class="control">
-          <a class="button is-danger" href="index.php?action=login">
+          <a class="button is-danger" href="join-us.php">
             <span class="icon">
               <i class="fab fa-angellist"></i>
             </span>
@@ -74,7 +74,7 @@
           </a>
         </p>
         <p class="control">
-          <a class="button is-primary is-danger" href="index.php?action=connexion">
+          <a class="button is-primary is-danger" href="connexion.php">
             <span class="icon">
               <i class="fas fa-lock"></i>
             </span>
@@ -82,7 +82,7 @@
           </a>
         </p>
         <p class="control">
-          <a class="button is-primary is-danger" href="index.php?action=photo">
+          <a class="button is-primary is-danger" href="photo.php">
             <span class="icon">
               <i class="fas fa-camera-retro"></i>
             </span>

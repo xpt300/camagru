@@ -13,7 +13,9 @@ session_start();
 <body>
 <div class="Degrade hero is-fullheight">
 <?php
-
+if (isset($_GET['code'])){
+  require('controleur/verification_account.php');
+}
 require('view/viewNav.php');
 if (isset($_SESSION['user'])){
   if (isset($_GET['action'])) {
@@ -52,12 +54,6 @@ else {
       require('view/viewPasswordLost.php');
     }
   }
-  else if (isset($_GET['mail'])){
-    if ($_GET['mail'] == 'ok'){
-      require('view/viewNotifmail.php');
-    }
-    require('view/viewAccueil.php');
-  }
   else if (isset($_GET['action']))
   {
   	if ($_GET['action'] == 'login') {
@@ -70,14 +66,12 @@ else {
       }
       require('view/viewConnexion.php');
   	}
-  	else if ($_GET['action'] == 'photo'){
-      require('view/viewPhoto.php');
-  	}
   }
   else if (isset($_GET['mail']))
   {
     if ($_GET['mail'] == 'validation'){
   	require('view/viewNotifmail.php');
+    require('view/viewAccueil.php');
     }
     else if ($_GET['mail'] == 'existant'){
   	require('view/viewNotifMailExistant.php');
@@ -86,6 +80,10 @@ else {
     else if ($_GET['mail'] == 'erreur'){
   	require('view/viewNotifMailErreur.php');
     require('view/viewForm.php');
+    }
+    else if ($_GET['mail'] == 'ok'){
+      require('view/viewNotifmail.php');
+      require('view/viewAccueil.php');
     }
   }
   else if (isset($_GET['login']) && $_GET['login'] == 'existant')
