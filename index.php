@@ -17,6 +17,10 @@ if (isset($_GET['code'])){
   require('controleur/verification_account.php');
 }
 require('view/viewNav.php');
+if (isset($_GET)){
+  require('view/viewNotif.php');
+}
+
 if (isset($_SESSION['user'])){
   if (isset($_GET['action'])) {
     if ($_GET['action'] == 'deconnexion') {
@@ -24,23 +28,6 @@ if (isset($_SESSION['user'])){
       require('controleur/deconnexion_account.php');
     }
     if ($_GET['action'] == 'compte') {
-      if (isset($_GET['notif'])){
-        if ($_GET['notif'] == 'mail_change'){
-          require("view/viewNotifMailChange.php");
-        }
-        else if ($_GET['notif'] == 'erreur_mail'){
-          require('view/viewNotifMailExistant.php');
-        }
-        else if ($_GET['notif'] == 'erreur_login'){
-          require('view/viewNotifErreurLogin.php');
-        }
-        else if ($_GET['notif'] == 'login_change'){
-          require('view/viewNotifLoginChange.php');
-        }
-        else if ($_GET['notif'] == 'login_existant'){
-          require('view/viewNotifLogin.php');
-        }
-      }
       require('view/viewFormaccount.php');
     }
   }
@@ -49,12 +36,7 @@ if (isset($_SESSION['user'])){
   }
 }
 else {
-  if (isset($_POST['password_lost'])){
-    if ($_POST['password_lost'] == "ok"){
-      require('view/viewPasswordLost.php');
-    }
-  }
-  else if (isset($_GET['action']))
+  if (isset($_GET['action']))
   {
   	if ($_GET['action'] == 'login') {
   		require('view/viewForm.php');
@@ -66,35 +48,6 @@ else {
       }
       require('view/viewConnexion.php');
   	}
-  }
-  else if (isset($_GET['mail']))
-  {
-    if ($_GET['mail'] == 'validation'){
-  	require('view/viewNotifmail.php');
-    require('view/viewAccueil.php');
-    }
-    else if ($_GET['mail'] == 'existant'){
-  	require('view/viewNotifMailExistant.php');
-    require('view/viewForm.php');
-    }
-    else if ($_GET['mail'] == 'erreur'){
-  	require('view/viewNotifMailErreur.php');
-    require('view/viewForm.php');
-    }
-    else if ($_GET['mail'] == 'ok'){
-      require('view/viewNotifmail.php');
-      require('view/viewAccueil.php');
-    }
-  }
-  else if (isset($_GET['login']) && $_GET['login'] == 'existant')
-  {
-  	require('view/viewNotiflogin.php');
-  	require('view/viewForm.php');
-  }
-  else if (isset($_GET['mdp']) && $_GET['mdp'] == 'erreur')
-  {
-  	require('view/viewNotifmdp.php');
-  	require('view/viewForm.php');
   }
   else {
   	require('view/viewAccueil.php');

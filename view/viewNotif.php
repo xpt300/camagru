@@ -25,9 +25,20 @@ else if (isset($_GET['mail'])){
     ?>Le <strong>mail</strong> de confirmation n'a pas pu etre envoyé, veuillez <strong>reessayer</strong> ou nous <strong>contacter</strong>.<?php
   }
   else if ($_GET['mail'] == 'ok'){
-
+    ?>Veuillez verifier votre compte par <strong>mail</strong> <i class="fas fa-envelope"></i>.<?php
   }
 }
+else if (isset($_GET['mdp'])){
+  if ($_GET['mdp'] == 'erreur'){
+  ?>Erreur <strong>mot de passe</strong> non conforme. [1 Majuscule, 1 chiffre et 6 caracteres au moins].<?php
+  }
+}
+else if (isset($_GET['connexion'])){
+  if ($_GET['connexion'] == 'erreur'){
+    ?>Erreur <strong>mot de passe</strong> non conforme. [1 Majuscule, 1 chiffre et 6 caracteres au moins].<?php
+  }
+}
+
 ?>
 
 </div>

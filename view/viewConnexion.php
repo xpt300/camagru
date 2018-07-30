@@ -38,7 +38,7 @@
 
 <div class="container">
   <center>
-  <form action="./index.php" method="post">
+  <form action="./lost-password.php" method="post">
   <div class="field is-grouped is-grouped-centered" style="width:300px">
   <div class="control">
     <button class="button is-danger is-outlined" name="password_lost" value="ok">Mot de passe oublie?</button>
