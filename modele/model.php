@@ -60,7 +60,7 @@ class user{
       // Contenu du message de l'email
       $message = '<html>';
       $message .= '<head><title>New account CAMAGRU</title></head>';
-      $message .= '<body><center><p>Bonjour <strong>'.$prenom.'</strong><br />Merci de valider votre email:<br /><a href="http://localhost:8080/camagru/index.php?code='.$key_user.'"><strong>VALIDATION</strong></a></p></center></body>';
+      $message .= '<body><center><p>Bonjour <strong>'.$prenom.'</strong><br />Merci de valider votre email:<br /><a href="http://localhost:8080/camagru/controleur/verification_account.php?code='.$key_user.'"><strong>VALIDATION</strong></a></p></center></body>';
       $message .= '</html>';
       $message = wordwrap($message, 70, "\r\n");
 
@@ -75,7 +75,7 @@ class user{
       // Contenu du message de l'email
       $message = '<html>';
       $message .= '<head><title>Changement de Password CAMAGRU</title></head>';
-      $message .= '<body><center><p>Bonjour <strong>'.$prenom.'</strong><br />Merci de suivre ce lien pour changer votre mot de passe:<br /><a href="http://localhost:8080/camagru/index.php?code='.$key_user.'"><strong>CHANGER MOT DE PASSE</strong></a></p></center></body>';
+      $message .= '<body><center><p>Bonjour <strong>'.$prenom.'</strong><br />Merci de suivre ce lien pour changer votre mot de passe:<br /><a href="http://localhost:8080/camagru/change-password.php?code='.$key_user.'"><strong>CHANGER MOT DE PASSE</strong></a></p></center></body>';
       $message .= '</html>';
       $message = wordwrap($message, 70, "\r\n");
 
@@ -112,9 +112,9 @@ class user{
      $reponse_login = $bdd->query('SELECT login FROM account WHERE login = "'.$_SESSION['user'].'"');
      $donnees = $reponse_login->fetch();
      $reponse = $bdd->query('SELECT login FROM account');
-		while ($donnee = $reponse->fetch())
+		while ($donnees = $reponse->fetch())
 		{
-			if ($donnee["login"] == $login){
+			if ($donnees["login"] == $login){
        return (2);
 			}
 		}
@@ -160,5 +160,34 @@ class user{
      }
      return (0);
    }
+   function modif_password($bdd, $key_user, $mdp){
+     $reponse = $bdd->query('SELECT key_user FROM account');
+    while ($donnee = $reponse->fetch()){
+      print($donnee['key_user']);
+      print('---------------');
+    }
+    exit();
+		while ($donnee = $reponse->fetch())
+		{
+      print($donnee['key_user']);
+      print('---------------');
+      print($key_user);
+			if ($donnee['key_user'] == $key_user){
+        print('la');
+        exit();
+        $req = $bdd->prepare("UPDATE account SET password= ? WHERE key_user= ?");
+        $req->execute(array($mdp, $key_user));
+        $reponse_login = $bdd->query('SELECT login FROM account WHERE login = "'.$key_user.'"');
+        $donnees = $reponse_login->fetch();
+        $_SESSION['user'] = $donnees['login'];
+        $key_user_new = hash("whirlpool", $mdp + $donnees['login ']);
+        $req = $bdd->prepare("UPDATE account SET key_user= ? WHERE key_user= ?");
+        $req->execute(array($key_user_new, $key_user));
+        return (1);
+			}
+      exit();
+		}
+    return (0);
+  }
 }
 ?>

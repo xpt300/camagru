@@ -32,6 +32,15 @@ else if (isset($_GET['mdp'])){
   if ($_GET['mdp'] == 'erreur'){
   ?>Erreur <strong>mot de passe</strong> non conforme. [1 Majuscule, 1 chiffre et 6 caracteres au moins].<?php
   }
+  else if ($_GET['mdp'] == 'erreur_303'){
+  ?>Erreur Les <strong>mots de passe</strong> ne corresponds pas. Veuillez reessayer.<?php
+  }
+  else if ($_GET['mdp'] == 'ok'){
+  ?>Votre <strong>mot de passe</strong> a bien été mis à jour.<?php
+  }
+  else if ($_GET['mdp'] == 'erreur_404'){
+  ?>Votre <strong>mot de passe</strong> n'a pas pu etre change. Veuillez contacter l'administrateur.<?php
+  }
 }
 else if (isset($_GET['connexion'])){
   if ($_GET['connexion'] == 'erreur'){

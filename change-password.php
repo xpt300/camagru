@@ -13,12 +13,19 @@ session_start();
 <body>
 <div class="Degrade hero is-fullheight">
 <?php
-
 require('view/viewNav.php');
 if (isset($_GET['login']) || isset($_GET['mdp']) || isset($_GET['mail'])){
   require('view/viewNotif.php');
 }
-require('view/viewForm.php');
+if (isset($_GET['code'])){
+  $key_user = htmlspecialchars($_GET['code']);
+  $_SESSION['code'] = $key_user;
+}
+if (isset($_GET['id'])){
+  $key_user = htmlspecialchars($_GET['id']);
+  $_SESSION['code'] = $key_user;
+}
+require('view/viewChangepassword.php');
 
 ?>
   </div>

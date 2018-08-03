@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('UTC');
+
 require_once('../modele/model.php');
 require_once('../config/setup.php');
 
@@ -34,25 +36,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $login = htmlspecialchars($login);
     $password = htmlspecialchars($mdp);
     $mail = htmlspecialchars($mail);
-    $array["key_user"] = hash("whirlpool", $password + $login);
+    $today = date("Y-m-d H:i:s");
+    $array["key_user"] = hash("whirlpool", $today);
     if ($user_var->create_account($prenom, $login, $mail, $mdp, $array["key_user"], $bdd) == 1) {
       if ($user_var->send_mail(1, $array["key_user"], $mail, $prenom, $login) == 1) {
         header('Location: ../index.php?mail=validation');
         exit();
       }
-      header('Location: ../index.php?mail=erreur');
+      header('Location: ../join-us.php?mail=erreur');
       exit();
     }
     else if ($user_var->create_account($prenom, $login, $mail, $mdp, $array["key_user"], $bdd) == -1){
-      header('Location: ../index.php?mail=existant');
+      header('Location: ../join-us.php?mail=existant');
       exit();
     }
     else {
-      header('Location: ../index.php?login=existant');
+      header('Location: ../join-us.php?login=existant');
       exit();
     }
   }
-  header('Location: ../index.php');
+  header('Location: ../join-us.php');
 }
-
 ?>
