@@ -15,11 +15,8 @@ session_start();
 <?php
 
 require('view/viewNav.php');
-if (isset($_GET['connexion']) && $_GET['connexion'] == 'erreur'){
-  require('view/viewConnexionErreur.php');
-}
-if (isset($_GET['mail']) && $_GET['mail'] == 'validation'){
-  require('view/viewNotifmailco.php');
+if (isset($_GET['login']) || isset($_GET['mdp']) || isset($_GET['mail'])){
+  require('view/viewNotif.php');
 }
 require('view/viewConnexion.php');
 

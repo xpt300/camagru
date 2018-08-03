@@ -45,7 +45,7 @@
             </a>
           </p>
           <p class="control">
-            <a class="button is-primary is-danger" href="index.php?action=photo">
+            <a class="button is-primary is-danger" href="photo.php">
               <span class="icon">
                 <i class="fas fa-camera-retro"></i>
               </span>

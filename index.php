@@ -17,7 +17,7 @@ if (isset($_GET['code'])){
   require('controleur/verification_account.php');
 }
 require('view/viewNav.php');
-if (isset($_GET)){
+if (isset($_GET['login']) || isset($_GET['mdp']) || isset($_GET['mail'])){
   require('view/viewNotif.php');
 }
 
