@@ -1,33 +1,26 @@
 <?php
   if (isset($_SESSION['user'])){
     ?>
-<div class="container">
+
   <center>
-  <article class="media">
-    <div class="media">
       <video id="video"></video>
       <canvas id="canvas"></canvas>
-    </div>
-    <div class="media-content">
-    </div>
-    <div class="content">
-      <a class="button is-danger" id='shoot'>
+      <a class="button is-danger" id='startbutton'>
         <span class="icon">
           <i class="fas fa-camera-retro"></i>
         </span>
         <span>Prendre une photo!</span>
       </a>
-    </div>
-    <div class="content">
+
       <a class="button is-danger" id='shoot'>
         <span class="icon">
           <i class="fas fa-camera-retro"></i>
         </span>
         <span>Upload une photo!</span>
       </a>
-    </div>
-  </article>
+  <img src="http://placekitten.com/g/320/261" id="photo" alt="photo">
 </center>
+<script src="other/js/camera.js"></script>
 <?php
 }
 else {

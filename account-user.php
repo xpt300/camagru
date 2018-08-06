@@ -18,35 +18,8 @@ if (isset($_GET['login']) || isset($_GET['mdp']) || isset($_GET['mail'])){
   require('view/viewNotif.php');
 }
 
-if (isset($_SESSION['user'])){
-  if (isset($_GET['action'])) {
-    if ($_GET['action'] == 'deconnexion') {
-      require('view/viewDeco.php');
-      require('controleur/deconnexion_account.php');
-    }
-  }
-  else {
-    require('view/viewAccueil.php');
-  }
-}
-else {
-  if (isset($_GET['action']))
-  {
-  	if ($_GET['action'] == 'login') {
-  		require('view/viewForm.php');
-  	}
-  	else if ($_GET['action'] == 'connexion'){
-      if (isset($_GET['connexion']) && $_GET['connexion'] == 'erreur')
-      {
-      	require('view/viewConnexionErreur.php');
-      }
-      require('view/viewConnexion.php');
-  	}
-  }
-  else {
-  	require('view/viewAccueil.php');
-  }
-}
+require('view/viewFormaccount.php');
+
 ?>
   </div>
 	<footer class="footer">

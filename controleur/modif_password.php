@@ -5,8 +5,10 @@ require_once('../config/setup.php');
 
 $mdp1 = htmlspecialchars($_POST['mdp1']);
 $mdp2 = htmlspecialchars($_POST['mdp2']);
-$key_user = $_SESSION['code'];
-unset($_SESSION['code']);
+if (isset($_SESSION['code'])){
+  $key_user = $_SESSION['code'];
+  unset($_SESSION['code']);
+}
 if ($mdp1 != $mdp2){
   header('Location: ../change-password.php?mdp=erreur_303');
   exit();
@@ -25,9 +27,17 @@ catch(PDOException $e)
       exit();
 }
 $var_user = new user;
-if ($var_user->modif_password($bdd, $key_user, $mdp1) == 1){
-  header('Location: ../index.php?mdp=ok');
-  exit();
+if (isset($key_user)){
+  if ($var_user->modif_password($bdd, $key_user, $mdp1, 0) == 1){
+    header('Location: ../index.php?mdp=ok');
+    exit();
+  }
+}
+else {
+  if ($var_user->modif_password($bdd, $_SESSION['login'], $mdp1, 1) == 1){
+    header('Location: ../index.php?mdp=ok');
+    exit();
+  }
 }
 header('Location: ../index.php?mdp=erreur_404');
 exit();

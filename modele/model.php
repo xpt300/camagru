@@ -3,15 +3,6 @@
 
 require_once('./../config/setup.php');
 
-if (isset($_GET['code'])){
-    $reponse = $bdd->query('SELECT key_user FROM account');
-    while ($donnee = $reponse->fetch()){
-      if ($donnee["key_user"] == $_GET["code"]){
-        $bdd->exec('UPDATE account SET valider = 1 WHERE login = "'.$_GET['id'].'"');
-        break;
-      }
-    }
-}
 // class user avec toutes ses fonctions.
 class user{
   function create_account($prenom, $login, $mail, $mdp, $key_user, $bdd){
@@ -142,7 +133,7 @@ class user{
    function verification_account($bdd, $code){
      $validate = 0;
      $reponse_code = $bdd->query('SELECT `key_user` FROM `account`');
-     while ($donnees == $reponse_code->fetch()){
+     while ($donnees = $reponse_code->fetch()){
        if ($code == $donnees['key_user']){
          $validate = 1;
          break;
@@ -160,34 +151,41 @@ class user{
      }
      return (0);
    }
-   function modif_password($bdd, $key_user, $mdp){
-     $reponse = $bdd->query('SELECT key_user FROM account');
-    while ($donnee = $reponse->fetch()){
-      print($donnee['key_user']);
-      print('---------------');
+   function modif_password($bdd, $key_user, $mdp, $num){
+     if ($num == 0){
+       $reponse = $bdd->query('SELECT key_user FROM account');
+  		 while ($donnee = $reponse->fetch()){
+  			if ($donnee['key_user'] == $key_user){
+          $req = $bdd->prepare("UPDATE account SET mdp= ? WHERE key_user= ?");
+          $array["mdp"] = hash("whirlpool", $mdp);
+          $req->execute(array($array['mdp'], $key_user));
+          $reponse_login = $bdd->query('SELECT login FROM account WHERE key_user = "'.$key_user.'"');
+          $donnees = $reponse_login->fetch();
+          $reponse_login = $bdd->query('SELECT mail FROM account WHERE key_user = "'.$key_user.'"');
+          $donnees = $reponse_login->fetch();
+          $_SESSION['mail'] = $donnees['mail'];
+          $key_user_new = hash("whirlpool", $mdp + $donnees['login']);
+          $req = $bdd->prepare("UPDATE account SET key_user= ? WHERE login= ?");
+          $req->execute(array($key_user_new, $donnees['login']));
+          return (1);
+  			}
+  		}
+      return (0);
     }
-    exit();
-		while ($donnee = $reponse->fetch())
-		{
-      print($donnee['key_user']);
-      print('---------------');
-      print($key_user);
-			if ($donnee['key_user'] == $key_user){
-        print('la');
-        exit();
-        $req = $bdd->prepare("UPDATE account SET password= ? WHERE key_user= ?");
-        $req->execute(array($mdp, $key_user));
-        $reponse_login = $bdd->query('SELECT login FROM account WHERE login = "'.$key_user.'"');
-        $donnees = $reponse_login->fetch();
-        $_SESSION['user'] = $donnees['login'];
-        $key_user_new = hash("whirlpool", $mdp + $donnees['login ']);
-        $req = $bdd->prepare("UPDATE account SET key_user= ? WHERE key_user= ?");
-        $req->execute(array($key_user_new, $key_user));
-        return (1);
-			}
-      exit();
-		}
-    return (0);
-  }
+    // $key user devient le login
+    else {
+       $req = $bdd->prepare("UPDATE account SET mdp= ? WHERE login= ?");
+       $array["mdp"] = hash("whirlpool", $mdp);
+       $req->execute(array($array['mdp'], $key_user));
+       $reponse_login = $bdd->query('SELECT mail FROM account WHERE login = "'.$key_user.'"');
+       $donnees = $reponse_login->fetch();
+       $_SESSION['mail'] = $donnees['mail'];
+       $key_user_new = hash("whirlpool", $mdp + $key_user);
+       $req = $bdd->prepare("UPDATE account SET key_user= ? WHERE login= ?");
+       $req->execute(array($key_user_new, $key_user));
+       return (1);
+     }
+     return (0);
+    }
 }
 ?>

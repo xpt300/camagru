@@ -1,7 +1,8 @@
 <?php
 session_start();
-require_once('./modele/model.php');
-require_once('./config/setup.php');
+require_once('../modele/model.php');
+require_once('../config/setup.php');
+require_once('../config/database.php');
 
 try
 {
@@ -16,11 +17,11 @@ catch(PDOException $e)
 $var_user = new user;
 if (isset($_GET['code'])){
   if ($var_user->verification_account($bdd, $_GET['code']) == 1){
-    header('Location: ../index.php?action=compte&notif=account_verifier');
+    header('Location: ../index.php?mail=account_ok');
     exit();
   }
   else if ($var_user->verification_account($bdd, $_GET['code']) == 2){
-    header('Location: ../index.php?action=compte&notif=verifier');
+    header('Location: ../index.php?mail=account_verifie');
     exit();
   }
 }

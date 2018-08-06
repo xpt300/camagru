@@ -41,7 +41,7 @@
 </div>
 
 <div class="column">
-<form action="./controleur/modif_password.php" method="post">
+<form action="./change-password.php" method="post">
   <div class="field is-grouped is-grouped-centered" style="width:300px">
     <div class="control">
       <button class="button is-danger" name="submit" value="ok">Changer ton mot de passe <span class="icon"> <i class="fas fa-exclamation"> </span></i></button>

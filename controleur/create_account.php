@@ -1,7 +1,5 @@
 <?php
 
-date_default_timezone_set('UTC');
-
 require_once('../modele/model.php');
 require_once('../config/setup.php');
 

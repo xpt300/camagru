@@ -27,7 +27,7 @@
             </a>
           </p>
           <p class="control">
-            <a class="button is-danger" href="index.php?action=compte">
+            <a class="button is-danger" href="account-user.php">
               <span class="icon">
                 <i class="fas fa-address-card"></i>
               </span>
