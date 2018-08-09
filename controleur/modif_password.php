@@ -17,15 +17,7 @@ if (!preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}$#', $mdp1)) {
   header('Location: ../change-password.php?mdp=erreur');
   exit();
 }
-try
-{
-  $bdd = new PDO($DB_DNS, $DB_USER, $DB_PASSWORD, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));
-}
-catch(PDOException $e)
-{
-      echo 'Erreur : '.$e->getMessage();
-      exit();
-}
+$bdd = database_co($DB_DNS, $DB_USER, $DB_PASSWORD);
 $var_user = new user;
 if (isset($key_user)){
   if ($var_user->modif_password($bdd, $key_user, $mdp1, 0) == 1){
@@ -34,7 +26,7 @@ if (isset($key_user)){
   }
 }
 else {
-  if ($var_user->modif_password($bdd, $_SESSION['login'], $mdp1, 1) == 1){
+  if ($var_user->modif_password($bdd, $_SESSION['user'], $mdp1, 1) == 1){
     header('Location: ../index.php?mdp=ok');
     exit();
   }

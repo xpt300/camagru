@@ -22,7 +22,7 @@
                 <i class="fab fa-angellist"></i>
               </span>
               <span class='is-black'>
-                Bonjour <?php print($_SESSION['user'])?>!
+                Bonjour <?php print($_SESSION['user'])?>
               </span>
             </a>
           </p>
@@ -32,7 +32,7 @@
                 <i class="fas fa-address-card"></i>
               </span>
               <span>
-                Mon compte!
+                Mon compte
               </span>
             </a>
           </p>
@@ -41,7 +41,7 @@
               <span class="icon">
                 <i class="fas fa-sign-out-alt"></i>
               </span>
-              <span>Deconnexion!</span>
+              <span>Deconnexion</span>
             </a>
           </p>
           <p class="control">
@@ -49,7 +49,7 @@
               <span class="icon">
                 <i class="fas fa-camera-retro"></i>
               </span>
-              <span>Photo!</span>
+              <span>Photo</span>
             </a>
           </p>
         </div>
@@ -69,7 +69,7 @@
               <i class="fab fa-angellist"></i>
             </span>
             <span>
-              Join us!
+              Join us
             </span>
           </a>
         </p>
@@ -78,7 +78,7 @@
             <span class="icon">
               <i class="fas fa-lock"></i>
             </span>
-            <span>Connexion!</span>
+            <span>Connexion</span>
           </a>
         </p>
         <p class="control">
@@ -86,7 +86,7 @@
             <span class="icon">
               <i class="fas fa-camera-retro"></i>
             </span>
-            <span>Photo!</span>
+            <span>Photo</span>
           </a>
         </p>
       </div>

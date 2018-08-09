@@ -20,12 +20,7 @@
       audio: false
     },
     function(stream) {
-      if (navigator.mozGetUserMedia) {
-        video.mozSrcObject = stream;
-      } else {
-        var vendorURL = window.URL || window.webkitURL;
         video.srcObject = stream;
-      }
       video.play();
     },
     function(err) {
