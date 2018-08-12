@@ -186,4 +186,13 @@ class user{
      return (0);
     }
 }
+class img{
+  function add_img($bdd, $user, $path){
+    $req = $bdd->prepare('INSERT INTO img(user_id, path_img) VALUES (:user_id, :path_img)');
+		$req->execute(array(
+			'user_id' => $user,
+			'path_img' => $path
+		));
+  }
+}
 ?>

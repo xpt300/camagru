@@ -15,4 +15,9 @@ document.querySelector('#startbutton').addEventListener('click', function(event)
     modal.classList.remove('is-active');
     html.classList.remove('is-clipped');
   });
+  // modal.querySelector('#save').addEventListener('click', function(e) {
+  //   e.preventDefault();
+  //   modal.classList.remove('is-active');
+  //   html.classList.remove('is-clipped');
+  // });
 });

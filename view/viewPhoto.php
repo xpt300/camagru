@@ -10,7 +10,7 @@
                 <div class="media-content">
                     <div class="columns">
                         <div class="column">
-                            <figure class="image is-96x96">
+                            <figure class="image is-96x96" id="img1">
                               <img src="./other/StickPNG/5a39135643754d312f78e563.png">
                             </figure>
                         </div>
@@ -125,6 +125,7 @@
 </div>
 
 <div class="container">
+<script src="other/js/save_image.js"></script>
 <script src="other/js/camera.js"></script>
 <script src="other/js/modal.js"></script>
 <?php

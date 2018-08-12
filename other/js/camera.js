@@ -43,7 +43,7 @@
     canvas.width = width;
     canvas.height = height;
     canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-    var data = canvas.toDataURL('image/png');
+    var data = canvas.toDataURL('./image/');
     photo.setAttribute('src', data);
   }
 
