@@ -1,3 +1,4 @@
+window.addEventListener("load", function() {
 (function() {
 
   var streaming = false,
@@ -16,7 +17,10 @@
 
   navigator.getMedia(
     {
-      video: true,
+      video:{
+          width: {ideal: 1280},
+          height: {ideal: 720}
+      },
       audio: false
     },
     function(stream) {
@@ -30,9 +34,9 @@
 
   video.addEventListener('canplay', function(ev){
     if (!streaming) {
-      height = video.videoHeight / (video.videoWidth/width);
-      video.setAttribute('width', width);
-      video.setAttribute('height', height);
+        height = video.videoHeight / (video.videoWidth/width);
+      video.setAttribute('width', 800);
+      video.setAttribute('height', 450);
       canvas.setAttribute('width', width);
       canvas.setAttribute('height', height);
       streaming = true;
@@ -53,3 +57,4 @@
   }, false);
 
 })();
+})

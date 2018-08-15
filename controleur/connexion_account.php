@@ -23,6 +23,14 @@ while ($donnees = $reponse_login->fetch()){
     $password = hash("whirlpool", $password);
     if ($donnees['mdp'] == $password){
       $_SESSION['user'] = $login;
+      $reponse_notif = $bdd->query('SELECT notification FROM account WHERE login = "'.$login.'"');
+      $donnees = $reponse_notif->fetch();
+      if ($donnees['notification'] == 'Y'){
+          $_SESSION['notification'] = 'On';
+      }
+      else {
+          $_SESSION['notification'] = 'Off';
+      }
       $reponse_mail = $bdd->query('SELECT mail FROM account WHERE login = "'.$login.'"');
       $donnees = $reponse_mail->fetch();
       $_SESSION['mail'] = $donnees['mail'];

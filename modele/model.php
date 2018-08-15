@@ -1,9 +1,8 @@
 <?php
 
 
-require_once('./../config/setup.php');
+// require_once('./../config/setup.php');
 
-// class user avec toutes ses fonctions.
 class user{
   function create_account($prenom, $login, $mail, $mdp, $key_user, $bdd){
 		$array["mdp"] = hash("whirlpool", $mdp);
@@ -23,14 +22,15 @@ class user{
 		}
 
 		// On ajoute une entrée dans la table account
-		$req = $bdd->prepare('INSERT INTO account(prenom, login, mail, mdp, key_user, valider) VALUES (:prenom, :login, :mail, :mdp, :key_user, :valider)');
+		$req = $bdd->prepare('INSERT INTO account(prenom, login, mail, mdp, key_user, valider, notification) VALUES (:prenom, :login, :mail, :mdp, :key_user, :valider, :notification)');
 		$req->execute(array(
 			'prenom' => $prenom,
 			'login' => $login,
 			'mail' => $mail,
 			'mdp' => $array["mdp"],
 			'key_user' => $key_user,
-			'valider' => 0
+			'valider' => 'N',
+            'notification' => 'Y'
 		));
     return (1);
 	}
@@ -84,7 +84,7 @@ class user{
   function valid_user($user, $bdd){
     $reponse = $bdd->query('SELECT valider FROM account WHERE login = "'.$user.'"');
     $donnee = $reponse->fetch();
-    if ($donnee['valider'] == 1)
+    if ($donnee['valider'] == 'Y')
     	return (1);
     return (0);
    }
@@ -142,11 +142,11 @@ class user{
      if ($validate == 1){
        $reponse_verif = $bdd->query('SELECT `valider` FROM `account` WHERE key_user = "'.$code.'"');
        $verif = $reponse_verif->fetch();
-       if ($verif['valider'] == 1){
+       if ($verif['valider'] == 'Y'){
          return (2);
        }
        $reponse = $bdd->prepare('UPDATE account set valider= ? WHERE key_user = ?');
-       $reponse->execute(array(1, $code));
+       $reponse->execute(array('Y', $code));
        return (1);
      }
      return (0);
@@ -185,14 +185,39 @@ class user{
      }
      return (0);
     }
+    function modif_notification($bdd, $login){
+        $reponse = $bdd->query('SELECT notification FROM account WHERE login ="'.$login.'"');
+        $donnee = $reponse->fetch();
+        print($donnee['notification']);
+        if ($donnee['notification'] == 'Y'){
+            $req = $bdd->prepare("UPDATE account SET notification= 'N' WHERE login= ?");
+            $req->execute(array($login));
+            return (1);
+        }
+        else {
+            $req = $bdd->prepare("UPDATE account SET notification= 'Y' WHERE login= ?");
+            $req->execute(array($login));
+            return (2);
+        }
+    }
 }
 class img{
-  function add_img($bdd, $user, $path){
-    $req = $bdd->prepare('INSERT INTO img(user_id, path_img) VALUES (:user_id, :path_img)');
-		$req->execute(array(
-			'user_id' => $user,
-			'path_img' => $path
-		));
-  }
+    function add_img($bdd, $user, $path){
+        $reponse = $bdd->query('SELECT id FROM account WHERE login = "'.$user.'"');
+        $donnee = $reponse->fetch();
+        $today = date("Y-m-d");
+        $req = $bdd->prepare('INSERT INTO img(user_id, path_img, date_img) VALUES (:user_id, :path_img, :date_img)');
+    	$req->execute(array('user_id' => $donnee['id'],'path_img' => $path, 'date_img' => $today));
+    }
+    function save_img($bdd, $user){
+      $reponse = $bdd->query('SELECT MAX(id) FROM img');
+      $donnee = $reponse->fetch();
+      $var = $donnee['MAX(id)'] + 1;
+      return ($var);
+    }
+    function delete_img($bdd, $path){
+        $req = $bdd->prepare('DELETE FROM img WHERE path_img = ?');
+        $req->execute(array($path));
+    }
 }
 ?>

@@ -49,3 +49,12 @@
   </div>
   </form>
 </div>
+<div class="column">
+<form action="./controleur/modif_notification.php" method="post">
+  <div class="field is-grouped is-grouped-centered" style="width:300px">
+    <div class="control">
+      <button class="button is-danger is-inverted is-outlined" name="submit" value="ok">Notification : <?php print($_SESSION['notification'])?><span class="icon"></button>
+    </div>
+  </div>
+  </form>
+</div>

@@ -62,6 +62,14 @@ else if (isset($_GET['connexion'])){
     ?>Erreur <strong>mot de passe</strong> non conforme. [1 Majuscule, 1 chiffre et 6 caracteres au moins].<?php
   }
 }
+else if (isset($_GET['notification'])){
+    if ($_GET['no']){
+        ?>Les notifications ont été<strong>désactivé</strong>.<?php
+    }
+    else if ($_GET['yes']){
+        ?>Les notifications ont été<strong>activé</strong>.<?php
+    }
+}
 
 ?>
 

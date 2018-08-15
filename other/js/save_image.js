@@ -1,3 +1,4 @@
+window.addEventListener("load", function() {
 var element_save = document.querySelector('#save');
 
 if(element_save){
@@ -17,3 +18,4 @@ if(element_save){
     form.submit();
     });
 }
+})
