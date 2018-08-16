@@ -1,6 +1,6 @@
 window.addEventListener("load", function() {
 
-    var deleteButtons = document.getElementsByClassName("delete");
+    var deleteButtons = document.getElementsByName("delete_button");
 
     for (var i = 0; i < deleteButtons.length; i++)
         deleteButtons[i].addEventListener('click', function() {

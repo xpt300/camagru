@@ -5,10 +5,12 @@ window.addEventListener("load", function() {
         var id = this.id;
         var a = 0;
         document.onmousemove = suitsouris;
-        var delta_x = document.getElementById('video').offsetLeft;
-        var delta_y = document.getElementById('video').offsetTop;
-        console.log(delta_x);
-        console.log(delta_y);
+        var left = document.getElementById('video').offsetLeft;
+        var top = document.getElementById('video').offsetTop;
+        var width = document.getElementById('video').offsetWidth;
+        var height = document.getElementById('video').offsetHeight;
+        var heightid = document.getElementById(id).offsetHeight;
+        console.log(heightid);
         function suitsouris(evenement){
             if(navigator.appName=="Microsoft Internet Explorer")
             {
@@ -19,6 +21,18 @@ window.addEventListener("load", function() {
             {
                     var x =  evenement.pageX;
                     var y =  evenement.pageY;
+                    if (x < left){
+                        x = left;
+                    }
+                    else if (x > (left + width - 96)){
+                        x = left + width - 96;
+                    }
+                    if (y < top){
+                        y = top;
+                    }
+                    else if (y > (top + height - heightid - 2)){
+                        y = top + height - heightid - 2;
+                    }
             }
             document.getElementById(id).style.left = (x+1)+'px';
             document.getElementById(id).style.top  = (y+1)+'px';

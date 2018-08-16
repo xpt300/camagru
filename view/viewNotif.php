@@ -1,7 +1,9 @@
-<div class = "container" id="container">
-  <center>
-<div class="notification is-danger">
-  <button class="delete" id="delete"></button>
+<div class="modal" id="modal_notif">
+    <div class="modal-background" id="div_notif"></div>
+    <center>
+    <div class = "container" id="container">
+        <div class="notification is-danger">
+            <button class="delete" id="delete_notif"></button>
 <?php
 if (isset($_GET['login'])){
   if ($_GET['login'] == 'erreur'){
@@ -71,8 +73,9 @@ else if (isset($_GET['notification'])){
     }
 }
 
-?>
 
+?>
+</div>
 </div>
 </center>
 </div>

@@ -1,12 +1,17 @@
 window.addEventListener("load", function() {
-var element_delete = document.getElementById("delete");
-var element_div = document.getElementById("container");
-element_delete.onclick = function()
-{
-    element_div.style.visibility = "visible";
-    if (element_div.style.visibility == "visible")
-    {
-        element_div.style.visibility = "hidden";
-    }
-};
+    var modal = document.querySelector('#modal_notif');
+    var html = document.querySelector('html');
+    modal.classList.add('is-active');
+    html.classList.add('is-clipped');
+
+    modal.querySelector('#div_notif').addEventListener('click', function(e) {
+      e.preventDefault();
+      modal.classList.remove('is-active');
+      html.classList.remove('is-clipped');
+    });
+    modal.querySelector('#delete_notif').addEventListener('click', function(e) {
+      e.preventDefault();
+      modal.classList.remove('is-active');
+      html.classList.remove('is-clipped');
+    });
 })

@@ -10,9 +10,10 @@ session_start();
   <link rel="stylesheet" href="./other/css/style.css">
 	<title>Camagru</title>
 
+
 </head>
 <body>
-<div class="Degrade hero is-fullheight">
+<div class="Degrade hero is-fullheight" id="page">
 <?php
 
 require('view/viewNav.php');

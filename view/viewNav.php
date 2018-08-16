@@ -37,19 +37,19 @@
             </a>
           </p>
           <p class="control">
-            <a class="button is-primary is-danger" href="index.php?action=deconnexion">
-              <span class="icon">
-                <i class="fas fa-sign-out-alt"></i>
-              </span>
-              <span>Deconnexion</span>
-            </a>
-          </p>
-          <p class="control">
             <a class="button is-primary is-danger" href="photo.php">
               <span class="icon">
                 <i class="fas fa-camera-retro"></i>
               </span>
               <span>Photo</span>
+            </a>
+          </p>
+          <p class="control">
+            <a class="button is-primary is-danger" href="index.php?action=deconnexion">
+              <span class="icon">
+                <i class="fas fa-sign-out-alt"></i>
+              </span>
+              <span>Deconnexion</span>
             </a>
           </p>
         </div>
