@@ -1,8 +1,8 @@
 <?php
-  if (!isset($_SESSION))
+if (!isset($_SESSION)){
     session_start();
-
-  if (isset($_SESSION['user'])){
+}
+if (isset($_SESSION['user'])){
     ?>
     <section class="hero is-small">
       <div class="hero-body">
@@ -73,7 +73,13 @@
                     <img class="img_move" id="filter4" style="position: absolute; z-index: 5; display: none; top: 45%; left: 20%" width="96px" height="96px" src="./other/StickPNG/584be22724222481f5d0a3e1.png">
                     <img class="img_move" id="filter5" style="position: absolute; z-index: 5; display: none; top: 45%; left: 20%" width="96px" height="96px" src="other/StickPNG/5845e10e7733c3558233c0ea.png">
                     <img class="img_move" id="filter6" style="position: absolute; z-index: 5; display: none; top: 45%; left: 20%" width="96px" height="96px" src="other/StickPNG/5845e635fb0b0755fa99d7e9.png">
-                    <video id="video" style="position: relative; z-index: 1"></video>
+                    <?php
+                    if (isset($_SESSION['import']) && $_SESSION['import'] === 1 && !empty($_SESSION['path'])) { ?>
+                        <img id="video" src="<?= $_SESSION['path'] ?>">
+                    <?php }
+                    else { ?>
+                        <video id="video" style="position: relative; z-index: 1"></video>
+                    <?php } ?>
                 </center>
             <div class="file is-info is-centered">
                 <a class="button is-danger" id='startbutton'>
@@ -84,7 +90,7 @@
                 </a>
                 <form id="img_form" method="post" action="./controleur/import_img_save.php" enctype="multipart/form-data">
                     <label class="file-label">
-                        <input id="file_import" class="file-input" type="file" name="resume">
+                        <input id="file_import" class="file-input" type="file" name="fichier">
                         <span class="file-cta">
                             <span class="file-icon">
                                 <i class="fas fa-upload"></i>
@@ -95,6 +101,11 @@
                     </span>
                 </label>
             </form>
+            <?php
+            if (isset($_SESSION['import']) && $_SESSION['import'] === 1) {
+                $_SESSION['import'] = 0; ?>
+                <a id="reload" class="button is-danger is-inverted is-outlined"><i class="fas fa-sync"></i></a>
+            <?php } ?>
         </div>
     </div>
     <div class="column">
@@ -142,9 +153,15 @@
 
 <div class="modal" id="modal_save">
     <div class="modal-background" id="div_save"></div>
+    <img class="img_can" id="filter_can1" style="position: absolute; z-index: 5; display: none; top: 45%; left: 20%" width="96px" height="96px" src="./other/StickPNG/5a39135643754d312f78e563.png">
+    <img class="img_can" id="filter_can2" style="position: absolute; z-index: 5; display: none; top: 45%; left: 20%" width="96px" height="96px" src="./other/StickPNG/5b6b204baa22c0115c0a56ee.png">
+    <img class="img_can" id="filter_can3" style="position: absolute; z-index: 5; display: none; top: 45%; left: 20%" width="96px" height="96px" src="./other/StickPNG/580b57fbd9996e24bc43be5c.png">
+    <img class="img_can" id="filter_can4" style="position: absolute; z-index: 5; display: none; top: 45%; left: 20%" width="96px" height="96px" src="./other/StickPNG/584be22724222481f5d0a3e1.png">
+    <img class="img_can" id="filter_can5" style="position: absolute; z-index: 5; display: none; top: 45%; left: 20%" width="96px" height="96px" src="other/StickPNG/5845e10e7733c3558233c0ea.png">
+    <img class="img_can" id="filter_can6" style="position: absolute; z-index: 5; display: none; top: 45%; left: 20%" width="96px" height="96px" src="other/StickPNG/5845e635fb0b0755fa99d7e9.png">
     <center>
     <div class="modal-content">
-        <canvas id="canvas"></canvas>
+        <canvas id="canvas" style="position: relative; z-index: 1"></canvas>
     </div>
         <a class="button is-success" id='save'>
             <span class="icon">
@@ -221,6 +238,7 @@
 <script src="other/js/modal_supp.js"></script>
 <script src="other/js/camera.js"></script>
 <script src="other/js/modal.js"></script>
+<script src="other/js/reload_page.js"></script>
 <?php
 }
 else {

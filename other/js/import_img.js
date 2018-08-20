@@ -50,32 +50,6 @@ window.addEventListener("load", function() {
          else{
              console.log('test');
              var form = document.getElementById("img_form");
-            //  form.setAttribute("method", "post");
-            //  form.setAttribute("action", "./controleur/import_img_save.php");
-            //  // form.setAttribute("enctype", "multipart/form-data");
-            //  // Ajout des paramètres sous forme de champs cachés
-            //  var champCache = document.createElement("input");
-            //  champCache.setAttribute("type","file");
-            //  champCache.setAttribute("name", "renome");
-            //  champCache.setAttribute("value", key1);
-            //  form.appendChild(champCache);
-            //   var champCache = document.createElement("input");
-            //  champCache.setAttribute("type","hidden");
-            //  champCache.setAttribute("name", "type");
-            //  champCache.setAttribute("value", key2);
-            //  form.appendChild(champCache);
-            //   var champCache = document.createElement("input");
-            //  champCache.setAttribute("type","hidden");
-            //  champCache.setAttribute("name", "size");
-            //  champCache.setAttribute("value", key3);
-            //  form.appendChild(champCache);
-            //  var champCache = document.createElement("input");
-            // champCache.setAttribute("type","hidden");
-            // champCache.setAttribute("name", "tmp_path");
-            // champCache.setAttribute("value", key4);
-            // form.appendChild(champCache);
-            //
-            //  document.body.appendChild(form);
              form.submit();
      }
     });
