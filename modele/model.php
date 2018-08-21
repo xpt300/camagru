@@ -209,15 +209,35 @@ class img{
         $req = $bdd->prepare('INSERT INTO img(user_id, path_img, date_img) VALUES (:user_id, :path_img, :date_img)');
     	$req->execute(array('user_id' => $donnee['id'],'path_img' => $path, 'date_img' => $today));
     }
-    function save_img($bdd, $user){
-      $reponse = $bdd->query('SELECT MAX(id) FROM img');
-      $donnee = $reponse->fetch();
-      $var = $donnee['MAX(id)'] + 1;
-      return ($var);
-    }
     function delete_img($bdd, $path){
         $req = $bdd->prepare('DELETE FROM img WHERE path_img = ?');
         $req->execute(array($path));
+    }
+    function superposition_img($source, $destinaiton, $coor_x, $coor_y){
+
+        // Traitement de l'image source
+        $source = imagecreatefrompng("./other/StickPNG/5a39135643754d312f78e563.png");
+        $largeur_source = imagesx($source);
+        $hauteur_source = imagesy($source);
+
+        // Traitement de l'image destination
+        $destination = imagecreatefrompng("pitch.png");
+        $largeur_destination = imagesx($destination);
+        $hauteur_destination = imagesy($destination);
+
+        // Calcul des coordonnées pour placer l'image source dans l'image de destination
+        $destination_x = ($largeur_destination - $largeur_source)/2;
+        $destination_y =  ($hauteur_destination - $hauteur_source)/2;
+
+        // On place l'image source dans l'image de destination
+        imagecopymerge($destination, $source, $destination_x, $destination_y, 0, 0, $largeur_source, $hauteur_source, 100);
+
+        // On affiche l'image de destination
+        imagepng($destination);
+
+        imagedestroy($source);
+        imagedestroy($destination);
+
     }
 }
 ?>

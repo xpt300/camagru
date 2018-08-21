@@ -102,8 +102,7 @@ if (isset($_SESSION['user'])){
                 </label>
             </form>
             <?php
-            if (isset($_SESSION['import']) && $_SESSION['import'] === 1) {
-                $_SESSION['import'] = 0; ?>
+            if (isset($_SESSION['import']) && $_SESSION['import'] === 1) { ?>
                 <a id="reload" class="button is-danger is-inverted is-outlined"><i class="fas fa-sync"></i></a>
             <?php } ?>
         </div>
@@ -160,9 +159,15 @@ if (isset($_SESSION['user'])){
     <img class="img_can" id="filter_can5" style="position: absolute; z-index: 5; display: none; top: 45%; left: 20%" width="96px" height="96px" src="other/StickPNG/5845e10e7733c3558233c0ea.png">
     <img class="img_can" id="filter_can6" style="position: absolute; z-index: 5; display: none; top: 45%; left: 20%" width="96px" height="96px" src="other/StickPNG/5845e635fb0b0755fa99d7e9.png">
     <center>
-    <div class="modal-content">
-        <canvas id="canvas" style="position: relative; z-index: 1"></canvas>
-    </div>
+        <div class="columns">
+            <?php
+            if (isset($_SESSION['import']) && $_SESSION['import'] === 1 && !empty($_SESSION['path'])) { ?>
+                <img id="canvas" src="<?= $_SESSION['path'] ?>" style="position: relative; z-index: 1">
+            <?php }
+            else { ?>
+                <canvas id="canvas" style="position: relative; z-index: 1"></canvas>
+            <?php } ?>
+        </div>
         <a class="button is-success" id='save'>
             <span class="icon">
                 <i class="fas fa-check"></i>

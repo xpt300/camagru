@@ -1,4 +1,5 @@
 window.addEventListener("load", function() {
+    sessionStorage.clear();
     var fileToRead = document.getElementById("file_import");
     fileToRead.addEventListener("change", function() {
         var files = fileToRead.files;
@@ -48,7 +49,6 @@ window.addEventListener("load", function() {
              });
          }
          else{
-             console.log('test');
              var form = document.getElementById("img_form");
              form.submit();
      }

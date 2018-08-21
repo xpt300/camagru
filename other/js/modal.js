@@ -1,16 +1,4 @@
 window.addEventListener("load", function() {
-    // var img_can = document.getElementsByClassName("img_can");
-    // for (var i = 0; i < img_can.length; i++)
-    //     img_can[i].function(){
-    //         var filter1 = this.name;
-    //         c
-    //         var data_json = sessionStorage.getItem(this.name);
-    //         var data = JSON.parse(data_json);
-    //         console.log("test");
-    //         if (data && data.actif === 1){
-    //             document.getElementById(filter1).style.display='block';
-    //         }
-    //     });
     document.querySelector('#startbutton').addEventListener('click', function(event) {
           event.preventDefault();
           var modal = document.querySelector('#modal_save');  // assuming you have only 1
@@ -25,25 +13,35 @@ window.addEventListener("load", function() {
               if (data != null && data.actif == 1){
                   var visible = document.getElementById(filter_can).style.display;
                   document.getElementById(filter_can).style.display='block';
-                  var height = data.filter_h;
-                  var width = data.filter_w;
-                  var can_h = document.getElementById('canvas').offsetHeight;
-                  var can_w = document.getElementById('canvas').offsetWidth;
-                  var delta_h = can_h / data.img_h;
-                  var delta_w = can_w / data.img_w;
-                  console.log(delta_h);
-                  console.log(delta_w);
-                  // document.getElementById(filter_can).height = (height * delta_h) +'px';
-                  // document.getElementById(filter_can).width = (width * delta_w) +'px';
+                  var can_x = document.getElementById('canvas').offsetLeft;
+                  var can_y = document.getElementById('canvas').offsetTop;
+                  var delta_x = data.filter_x - data.img_x;
+                  var delta_y = data.filter_y - data.img_y;
+                  document.getElementById(filter_can).style.left = (can_x + delta_x) + 'px';
+                  document.getElementById(filter_can).style.top = (can_y + delta_y) + 'px';
               }
           }
 
       modal.querySelector('#div_save').addEventListener('click', function(e) {
+          for(var i = 1; i < 7; i++) {
+              var filter_can = "filter_can" + i;
+              var visible = document.getElementById(filter_can).style.display;
+              if (visible = 'block'){
+                  document.getElementById(filter_can).style.display='none';
+              }
+          }
             e.preventDefault();
             modal.classList.remove('is-active');
             html.classList.remove('is-clipped');
       });
       modal.querySelector('#close_save').addEventListener('click', function(e) {
+          for(var i = 1; i < 7; i++) {
+              var filter_can = "filter_can" + i;
+              var visible = document.getElementById(filter_can).style.display;
+              if (visible = 'block'){
+                  document.getElementById(filter_can).style.display='none';
+              }
+          }
             e.preventDefault();
             modal.classList.remove('is-active');
             html.classList.remove('is-clipped');

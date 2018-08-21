@@ -7,7 +7,7 @@ window.addEventListener("load", function() {
       canvas       = document.querySelector('#canvas'),
       photo        = document.querySelector('#photo'),
       startbutton  = document.querySelector('#startbutton'),
-      width = 320,
+      width = 800,
       height = 0;
 
   navigator.getMedia = ( navigator.getUserMedia ||
@@ -34,11 +34,12 @@ window.addEventListener("load", function() {
 
   video.addEventListener('canplay', function(ev){
     if (!streaming) {
-        height = video.videoHeight / (video.videoWidth/width);
+        // height = video.videoHeight / (video.videoWidth/width);
+        height = 450;
       video.setAttribute('width', 800);
       video.setAttribute('height', 450);
-      canvas.setAttribute('width', width);
-      canvas.setAttribute('height', height);
+      canvas.setAttribute('width', 800);
+      canvas.setAttribute('height', 450);
       streaming = true;
     }
   }, false);

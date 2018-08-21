@@ -10,7 +10,6 @@ window.addEventListener("load", function() {
         var height = document.getElementById('video').offsetHeight;
         var heightid = document.getElementById(id).offsetHeight;
         var widthid = document.getElementById(id).offsetWidth;
-        console.log(heightid);
         function suitsouris(evenement){
             if(navigator.appName=="Microsoft Internet Explorer")
             {
@@ -41,20 +40,17 @@ window.addEventListener("load", function() {
         document.getElementById("video").addEventListener('click', function(){
             var data_json = sessionStorage.getItem(document.getElementById(id).id);
             var data = JSON.parse(data_json);
-            data.filter_x = document.getElementById(id).style.left;
-            data.filter_y = document.getElementById(id).style.top;
-            data.filter_h = document.getElementById(id).offsetHeight;
-            data.filter_w = document.getElementById(id).offsetWidth;
+            data.filter_x = parseInt(document.getElementById(id).style.left);
+            data.filter_y = parseInt(document.getElementById(id).style.top);
             data.img_x = document.getElementById('video').offsetLeft;
             data.img_y = document.getElementById('video').offsetTop;
             data.img_w = document.getElementById('video').offsetWidth;
             data.img_h = document.getElementById('video').offsetHeight;
-            data.screen_h = screen.height;
-            data.screen_w = screen.width;
             var data_json = JSON.stringify(data);
             sessionStorage.setItem(document.getElementById(id).id, data_json);
             var data_json = sessionStorage.getItem(document.getElementById(id).id);
             var data = JSON.parse(data_json);
+            console.log("move");
             console.log(data);
             document.onmousemove = true;
             return ;

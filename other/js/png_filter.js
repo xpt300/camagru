@@ -1,8 +1,5 @@
 window.addEventListener("load", function() {
-
     var filterButtons = document.getElementsByClassName("img");
-    sessionStorage.setItem("filterOn", '0');
-
     for (var i = 0; i < filterButtons.length; i++)
         filterButtons[i].addEventListener('click', function() {
             var filter = this.name;
@@ -20,6 +17,12 @@ window.addEventListener("load", function() {
                     screen_w: 0,
                     screen_h: 0
                 }
+                data.img_x = document.getElementById('video').offsetLeft;
+                data.img_y = document.getElementById('video').offsetTop;
+                data.img_w = document.getElementById('video').offsetWidth;
+                data.img_h = document.getElementById('video').offsetHeight;
+                data.screen_h = screen.height;
+                data.screen_w = screen.width;
                 var data_json = JSON.stringify(data);
                 sessionStorage.setItem(filter, data_json);
             }
@@ -29,9 +32,10 @@ window.addEventListener("load", function() {
             var data_json = sessionStorage.getItem(filter);
             var data = JSON.parse(data_json);
             data.actif = 1;
+            data.filter_x = document.getElementById(filter).offsetLeft;
+            data.filter_y = document.getElementById(filter).offsetTop;
             var data_json = JSON.stringify(data);
             sessionStorage.setItem(filter, data_json);
-            console.log(data);
             }
             else {
                 document.getElementById(filter).style.display='none';
@@ -40,7 +44,6 @@ window.addEventListener("load", function() {
                 data.actif = 0;
                 var data_json = JSON.stringify(data);
                 sessionStorage.setItem(filter, data_json);
-                console.log(data);
             }
         });
 })
