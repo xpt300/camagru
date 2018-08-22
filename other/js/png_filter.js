@@ -34,6 +34,8 @@ window.addEventListener("load", function() {
             data.actif = 1;
             data.filter_x = document.getElementById(filter).offsetLeft;
             data.filter_y = document.getElementById(filter).offsetTop;
+            data.filter_w = document.getElementById(filter).offsetWidth;
+            data.filter_h = document.getElementById(filter).offsetHeight;
             var data_json = JSON.stringify(data);
             sessionStorage.setItem(filter, data_json);
             }

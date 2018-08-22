@@ -30,7 +30,7 @@ if(element_save){
         var data = JSON.parse(data_json);
         if (data != null && data.actif == 1){
             var name = document.getElementById(filter).src;
-            var key = name + "-" + data.filter_x + "-" + data.filter_y + "-" + data.img_x + "-" + data.img_y;
+            var key = name + ";" + data.filter_x + ";" + data.filter_y + ";" + data.img_x + ";" + data.img_y + ";" + data.filter_w + ";" + data.filter_h;
             var champCache = document.createElement("input");
             champCache.setAttribute("type","hidden");
             champCache.setAttribute("name", filter);

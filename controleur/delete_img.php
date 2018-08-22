@@ -7,6 +7,8 @@ require_once('../config/database.php');
 $bdd = database_co($DB_DNS, $DB_USER, $DB_PASSWORD);
 $var = new img;
 $path = $_POST['image_del'];
+
+unlink(".".$path);
 $var->delete_img($bdd, $path);
 header('Location: ../photo.php');
 exit();

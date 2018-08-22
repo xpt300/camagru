@@ -18,16 +18,23 @@ if (isset($_POST['src'])){
         header('Location: ../photo.php');
         exit();
     }
+    $var->add_img($bdd, $user, "./other/image/$tab[7]");
     $i = 1;
-    $var = "filter".$i;
+    $filter = "filter".$i;
     while ($i < 7){
-        if (isset($_POST[$var])){
-            print($_POST[$var]);
+         if (isset($_POST[$filter])){
+            $array = explode("/", $_POST[$filter]);
+            $array = explode(";", $array[6]);
+            $destination = "../other/StickPNG/".$array[0];
+            $array = explode(";", $_POST[$filter]);
+            $coor_x = $array[1] - $array[3];
+            $coor_y = $array[2] - $array[4];
+            $var->superposition_img($rename, $destination, $coor_x, $coor_y, $array[5], $array[6]);
         }
         $i++;
-        $var = "filter".$i;
+        $filter = "filter".$i;
     }
-    $var->add_img($bdd, $user, "./other/image/$tab[7]");
+
     if (isset($_SESSION['import'])){
         $_SESSION['import'] = 0;
     }
@@ -35,16 +42,6 @@ if (isset($_POST['src'])){
     exit();
 }
 else {
-    $i = 1;
-    $var = "filter".$i;
-    while ($i < 7){
-        if (isset($_POST[$var])){
-            print($_POST[$var]);
-        }
-        $i++;
-        $var = "filter".$i;
-    }
-    exit();
     $bdd = database_co($DB_DNS, $DB_USER, $DB_PASSWORD);
     $var = new img;
     $data = $_POST['image'];
@@ -55,6 +52,21 @@ else {
     fwrite($fic,base64_decode($image[1]));
     fclose($fic);
     $var->add_img($bdd, $user, "./other/image/$nom_fichier.png");
+    $i = 1;
+    $filter = "filter".$i;
+    while ($i < 7){
+         if (isset($_POST[$filter])){
+            $array = explode("/", $_POST[$filter]);
+            $array = explode(";", $array[6]);
+            $destination = "../other/StickPNG/".$array[0];
+            $array = explode(";", $_POST[$filter]);
+            $coor_x = $array[1] - $array[3];
+            $coor_y = $array[2] - $array[4];
+            $var->superposition_img("../other/image/$nom_fichier.png", $destination, $coor_x, $coor_y, $array[5], $array[6]);
+        }
+        $i++;
+        $filter = "filter".$i;
+    }
     header('Location: ../photo.php');
     exit();
 }

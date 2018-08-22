@@ -213,31 +213,65 @@ class img{
         $req = $bdd->prepare('DELETE FROM img WHERE path_img = ?');
         $req->execute(array($path));
     }
-    function superposition_img($source, $destinaiton, $coor_x, $coor_y){
-
+    function superposition_img($path_destination, $path_source, $destination_x, $destination_y, $largeur_source, $hauteur_source){
+         // header ("Content-type: image/png");
         // Traitement de l'image source
-        $source = imagecreatefrompng("./other/StickPNG/5a39135643754d312f78e563.png");
-        $largeur_source = imagesx($source);
-        $hauteur_source = imagesy($source);
 
-        // Traitement de l'image destination
-        $destination = imagecreatefrompng("pitch.png");
-        $largeur_destination = imagesx($destination);
-        $hauteur_destination = imagesy($destination);
-
-        // Calcul des coordonnées pour placer l'image source dans l'image de destination
-        $destination_x = ($largeur_destination - $largeur_source)/2;
-        $destination_y =  ($hauteur_destination - $hauteur_source)/2;
-
+        $array = explode(".", $path_source);
+        $new_path = "..".$array[2]."mini.".$array[3];
+        if (file_exists($new_path)){
+            $array_size = getimagesize($new_path);
+            if ($array_size[1] == $largeur_source && $array_size[0] == $hauteur_source){
+                $source = imagecreatefrompng($new_path);
+            }
+        }
+        else {
+            print($hauteur_source);
+            print($largeur_source);
+            exit();
+            $size = getimagesize($path_source);
+            $source = imagecreatefrompng($path_source);
+            $img_petite = imagecreatetruecolor($hauteur_source,$largeur_source);
+            imagecolortransparent($img_petite, imagecolorallocate($img_petite, 0, 0, 0));
+            imagecopyresampled($img_petite,$source,0,0,0,0,$largeur_source,$hauteur_source,$size[0],$size[1]);
+            imagepng($img_petite, $new_path);
+            $source = imagecreatefrompng($new_path);
+            imagealphablending($source, true);
+            imagesavealpha($source, true);
+        }
+        $var = 0;
+        if (image_type_to_mime_type(exif_imagetype($path_destination)) == "image/png"){
+            // Traitement de l'image destination
+            $destination = imagecreatefrompng($path_destination);
+            $largeur_destination = imagesx($destination);
+            $hauteur_destination = imagesy($destination);
+            $var = 1;
+        }
+        else if (image_type_to_mime_type(exif_imagetype($path_destination)) == "image/gif"){
+            $destination = imagecreatefromgif($path_destination);
+            $largeur_destination = imagesx($destination);
+            $hauteur_destination = imagesy($destination);
+            $var = 2;
+        }
+        else {
+            $destination = imagecreatefromjpeg($path_destination);
+            $largeur_destination = imagesx($destination);
+            $hauteur_destination = imagesy($destination);
+            $var = 3;
+        }
         // On place l'image source dans l'image de destination
-        imagecopymerge($destination, $source, $destination_x, $destination_y, 0, 0, $largeur_source, $hauteur_source, 100);
-
-        // On affiche l'image de destination
-        imagepng($destination);
-
+        imagecopy($destination, $source, $destination_x, $destination_y, 0, 0, $largeur_source, $hauteur_source);
+        if ($var == 1){
+            imagepng($destination, $path_destination);
+        }
+        else if ($var == 2){
+            imagegif($destination, $path_destination);
+        }
+        else {
+            imagejpeg($destination, $path_destination);
+        }
         imagedestroy($source);
         imagedestroy($destination);
-
     }
 }
 ?>
