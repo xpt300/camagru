@@ -221,17 +221,12 @@ class img{
         $new_path = "..".$array[2]."mini.".$array[3];
         if (file_exists($new_path)){
             $array_size = getimagesize($new_path);
-            if ($array_size[1] == $largeur_source && $array_size[0] == $hauteur_source){
-                $source = imagecreatefrompng($new_path);
-            }
+            $source = imagecreatefrompng($new_path);
         }
         else {
-            print($hauteur_source);
-            print($largeur_source);
-            exit();
             $size = getimagesize($path_source);
             $source = imagecreatefrompng($path_source);
-            $img_petite = imagecreatetruecolor($hauteur_source,$largeur_source);
+            $img_petite = imagecreatetruecolor($largeur_source,$hauteur_source);
             imagecolortransparent($img_petite, imagecolorallocate($img_petite, 0, 0, 0));
             imagecopyresampled($img_petite,$source,0,0,0,0,$largeur_source,$hauteur_source,$size[0],$size[1]);
             imagepng($img_petite, $new_path);
@@ -274,4 +269,10 @@ class img{
         imagedestroy($destination);
     }
 }
+class comment{
+    function add_comment($bdd, $str, $user){
+
+    }
+}
+
 ?>

@@ -28,6 +28,14 @@ window.addEventListener("load", function() {
             }
             var visibleornot = document.getElementById(filter).style.display;
             if (visibleornot == 'none'){
+            if (sessionStorage.getItem("actif") == null){
+                sessionStorage.setItem("actif", "1");
+            }
+            else {
+                var actif = sessionStorage.getItem("actif");
+                actif = actif + 1;
+                sessionStorage.setItem("actif", actif);
+            }
             document.getElementById(filter).style.display='block';
             var data_json = sessionStorage.getItem(filter);
             var data = JSON.parse(data_json);
@@ -40,6 +48,11 @@ window.addEventListener("load", function() {
             sessionStorage.setItem(filter, data_json);
             }
             else {
+                if (sessionStorage.getItem("actif") != null){
+                    var actif = sessionStorage.getItem("actif");
+                    actif = actif - 1;
+                    sessionStorage.setItem("actif", actif);
+                }
                 document.getElementById(filter).style.display='none';
                 var data_json = sessionStorage.getItem(filter);
                 var data = JSON.parse(data_json);

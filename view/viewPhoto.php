@@ -204,6 +204,17 @@ if (isset($_SESSION['user'])){
     </div>
     </center>
 </div>
+<div class="modal" id="modal_filter">
+    <div class="modal-background" id="div_filter"></div>
+    <center>
+    <div class = "container" id="container">
+        <div class="notification is-danger">
+            <button class="delete" id="delete_filter"></button>
+            Vous devez selectionner un <strong>filtre</strong> avant de pouvoir sauvegarder.
+        </div>
+    </div>
+    </center>
+</div>
 <div class="modal" id="modal_supp">
     <div class="modal-background" id="div_supp"></div>
     <center>

@@ -34,7 +34,6 @@ if (isset($_POST['src'])){
         $i++;
         $filter = "filter".$i;
     }
-
     if (isset($_SESSION['import'])){
         $_SESSION['import'] = 0;
     }
