@@ -14,6 +14,14 @@
             if ($a == 6){
                 $var = "none";
             }
+            $reponse_id = $bdd->query('SELECT id FROM img WHERE path_img = "'.$donnee["path_img"].'"');
+            $img_id = $reponse_id->fetch();
+            $reponse_img = $bdd->query('SELECT date_img FROM img WHERE id = "'.$img_id['id'].'"');
+            $date_img = $reponse_img->fetch();
+            $reponse_content = $bdd->query('SELECT content FROM comment WHERE img_id = "'.$img_id['id'].'"');
+            $content = $reponse_content->fetch();
+            $reponse_prenom = $bdd->query('SELECT prenom FROM account WHERE login = "'.$_SESSION['user'].'"');
+            $prenom = $reponse_prenom->fetch();
             ?>
             <div class="columns" style="display: <?php echo $var ?>;">
                 <div class="column"></div>
@@ -24,6 +32,16 @@
                     <div class="box">
                         <div class="media-content">
                             <div class="content">
+                                <?php if (!$content['content']) { ?>
+                                    <center>
+                                    <span>
+                                    <p style="color: #3676d9"><i class="fas fa-comment-slash"></i> Aucun commentaire</p>
+                                </span>
+                                </center>
+                                    </div>
+                                  </div>
+                                <?php }
+                                    else { ?>
                                 <p>
                                 <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
                                 <br>
@@ -39,12 +57,13 @@
                                 <span style="text-decoration: underline;">Voir tous les commentaires</span>
                             </div>
                         </center>
+                    <?php } ?>
                         <div class="control">
                             <textarea class="input" id="input" name="comment_button<?php echo $a ?>" placeholder="Commente"></textarea>
                         </div>
                         <div class="field is-grouped is-hidden" id="comment_button<?php echo $a ?>">
                             <div class="control">
-                                <button class="button is-link" id="submit_button<?php echo $a ?>">Submit</button>
+                                <button class="button is-link submit" id="<?php echo $_SESSION['user'] ?>" name="<?php echo $donnee['path_img']?>">Submit</button>
                             </div>
                             <div class="control">
                                 <button class="button is-text" id="cancel_button<?php echo $a ?>">Cancel</button>

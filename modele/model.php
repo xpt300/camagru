@@ -270,8 +270,13 @@ class img{
     }
 }
 class comment{
-    function add_comment($bdd, $str, $user){
-
+    function add_comment($bdd, $str, $user, $path_img){
+        $reponse = $bdd->query('SELECT id FROM account WHERE login = "'.$user.'"');
+        $user_id = $reponse->fetch();
+        $reponse = $bdd->query('SELECT id FROM img WHERE path_img = "'.$path_img.'"');
+        $img_id = $reponse->fetch();
+        $req = $bdd->prepare('INSERT INTO comment(user_id, content, img_id, date_comment) VALUES (:user_id, :content, :img_id, :date_comment)');
+        $req->execute(array('user_id' => $user_id['id'],'content' => $str, 'img_id' => $img_id['id'], 'date_comment' => date("Y-m-d H:i:s")));
     }
 }
 

@@ -12,7 +12,7 @@ window.addEventListener("load", function() {
             document.getElementById("input").value = '';
             document.getElementById(this.parentNode.parentNode.id).classList.add('is-hidden');
         });
-    var submitButtons = document.getElementsByClassName("button is-link");
+    var submitButtons = document.getElementsByClassName("button is-link submit");
     for (var i = 0; i < submitButtons.length; i++)
         submitButtons[i].addEventListener('click', function() {
             var key = document.getElementById("input").value;
@@ -23,6 +23,16 @@ window.addEventListener("load", function() {
             champCache.setAttribute("type","hidden");
             champCache.setAttribute("name", "comment");
             champCache.setAttribute("value", key);
+            form.appendChild(champCache);
+            var champCache = document.createElement("input");
+            champCache.setAttribute("type","hidden");
+            champCache.setAttribute("name", "image");
+            champCache.setAttribute("value", this.name);
+            form.appendChild(champCache);
+            var champCache = document.createElement("input");
+            champCache.setAttribute("type","hidden");
+            champCache.setAttribute("name", "user");
+            champCache.setAttribute("value", this.id);
             form.appendChild(champCache);
             document.body.appendChild(form);
             form.submit();
