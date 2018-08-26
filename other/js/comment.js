@@ -13,9 +13,11 @@ window.addEventListener("load", function() {
             document.getElementById(this.parentNode.parentNode.id).classList.add('is-hidden');
         });
     var submitButtons = document.getElementsByClassName("button is-link submit");
-    for (var i = 0; i < submitButtons.length; i++)
+    for (var i = 1; i <= submitButtons.length; i++)
         submitButtons[i].addEventListener('click', function() {
-            var key = document.getElementById("input").value;
+            var id = this.parentNode.parentNode.id;
+            var num = id.match(/[a-z]+|\d+/ig);
+            var key = document.getElementById("input" + num[2]).value;
             var form = document.createElement("form");
             form.setAttribute("method", "post");
             form.setAttribute("action", "./controleur/add_comment.php");

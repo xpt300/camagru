@@ -16,12 +16,13 @@
             }
             $reponse_id = $bdd->query('SELECT id FROM img WHERE path_img = "'.$donnee["path_img"].'"');
             $img_id = $reponse_id->fetch();
-            $reponse_img = $bdd->query('SELECT date_img FROM img WHERE id = "'.$img_id['id'].'"');
-            $date_img = $reponse_img->fetch();
             $reponse_content = $bdd->query('SELECT content FROM comment WHERE img_id = "'.$img_id['id'].'"');
             $content = $reponse_content->fetch();
+            $reponse_img = $bdd->query('SELECT date_comment FROM comment WHERE id = "'.$img_id['id'].'"');
+            $date_comment = $reponse_img->fetch();
             $reponse_prenom = $bdd->query('SELECT prenom FROM account WHERE login = "'.$_SESSION['user'].'"');
             $prenom = $reponse_prenom->fetch();
+            // $reponse_nb_comment = $bdd->query('SELECT ')
             ?>
             <div class="columns" style="display: <?php echo $var ?>;">
                 <div class="column"></div>
@@ -41,14 +42,16 @@
                                     </div>
                                   </div>
                                 <?php }
-                                    else { ?>
+                                    else {
+                                      ?>
                                 <p>
-                                <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
+                                <strong><?php echo $prenom[0]?></strong> <small><?php echo $date_comment[0]?></small>
                                 <br>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
+                                <?php echo $content[0]?>
                               </p>
                           </div>
                         </div>
+
                         <center>
                             <div class="notification" style="padding: initial;background-color: white;cursor: pointer;">
                                 <span class="icon">
@@ -59,7 +62,7 @@
                         </center>
                     <?php } ?>
                         <div class="control">
-                            <textarea class="input" id="input" name="comment_button<?php echo $a ?>" placeholder="Commente"></textarea>
+                            <textarea class="input" id="input<?php echo $a ?>" name="comment_button<?php echo $a ?>" placeholder="Commente"></textarea>
                         </div>
                         <div class="field is-grouped is-hidden" id="comment_button<?php echo $a ?>">
                             <div class="control">
