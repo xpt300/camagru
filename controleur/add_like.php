@@ -4,15 +4,15 @@ if (!isset($_SESSION)){
 }
 require_once('../modele/model.php');
 require_once('../config/setup.php');
+
+print_r($_POST);
+exit ();
 if (isset($_SESSION['user']) && $_SESSION['user'] != null){
   $bdd = database_co($DB_DNS, $DB_USER, $DB_PASSWORD);
-  $var = new comment;
-  $var->add_comment($bdd, $_POST['comment'], $_POST['user'], $_POST['image']);
-  header('Location: ../index.php');
-  exit();
+  $var = new like;
+  $var->add_like($bdd, $_POST['img_id'], $_SESSION['user']);
 }
 else {
-  header('Location: ../index.php?authentification=no');
-  exit();
+  return (0);
 }
 ?>

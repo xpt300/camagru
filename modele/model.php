@@ -268,6 +268,11 @@ class img{
         imagedestroy($source);
         imagedestroy($destination);
     }
+    function id_img($bdd, $path_img){
+      $reponse_id = $bdd->query('SELECT id FROM img WHERE path_img = "'.$path_img.'"');
+      $img_id = $reponse_id->fetch();
+      return ($img_id);
+    }
 }
 class comment{
     function add_comment($bdd, $str, $user, $path_img){
@@ -278,6 +283,63 @@ class comment{
         $req = $bdd->prepare('INSERT INTO comment(user_id, content, img_id, date_comment) VALUES (:user_id, :content, :img_id, :date_comment)');
         $req->execute(array('user_id' => $user_id['id'],'content' => $str, 'img_id' => $img_id['id'], 'date_comment' => date("Y-m-d H:i:s")));
     }
+    function content_img($bdd, $path_image, $img_id){
+      $i = 0;
+      $reponse_content = $bdd->query('SELECT content FROM comment WHERE img_id = "'.$img_id.'" ORDER BY id DESC');
+      while ($donnees = $reponse_content->fetch()){
+        $content[$i] = $donnees['content'];
+        $i++;
+      }
+      return ($content);
+    }
+    function date_comment($bdd, $img_id){
+      $i = 0;
+      $reponse_img = $bdd->query('SELECT date_comment FROM comment WHERE img_id = "'.$img_id.'" ORDER BY id DESC');
+      while ($donnees = $reponse_img->fetch()){
+        $date_comment[$i] = $donnees['date_comment'];
+        $i++;
+      }
+      return ($date_comment);
+    }
+    function prenom_comment($bdd, $img_id){
+      $i = 0;
+      $reponse_id = $bdd->query('SELECT user_id FROM comment WHERE img_id = "'.$img_id.'"');
+      while ($donnees = $reponse_id->fetch()){
+        $reponse_prenom = $bdd->query('SELECT prenom FROM account WHERE  id = "'.$donnees['user_id'].'"');
+        $prenom_tmp = $reponse_prenom->fetch();
+        $prenom[$i] = $prenom_tmp['prenom'];
+        $i++;
+      }
+      return ($prenom);
+    }
+    function nb_comment($bdd, $img_id){
+      $reponse_lenght = $bdd->query('SELECT COUNT(img_id) FROM comment WHERE img_id = "'.$img_id.'"');
+      $lenght_com = $reponse_lenght->fetch();
+      return ($lenght_com);
+    }
 }
-
+class like{
+  function count_like($bdd, $img_id){
+    $reponse_like = $bdd->query('SELECT COUNT(user_id) FROM `like` WHERE img_id = "'.$img_id.'"');
+    $count_like = $reponse_like->fetch();
+    return ($count_like);
+  }
+  function add_like($bdd, $img_id, $user){
+    $reponse_add = $bdd->prepare('INSERT INTO `like` VALUES (:user_id, :img_id)');
+    $reponse_add->execute(array('user_id' => $user,'img_id' => $img_id));
+  }
+  function remove_like($bdd, $img_id, $user){
+    $reponse_add = $bdd->prepare('DELETE FROM `like` WHERE user_id = "'.$user.'"');
+    $reponse_add->execute();
+  }
+  function valid_like($bdd, $img_id, $user){
+    $reponse_user = $bdd->query('SELECT user_id FROM `like` WHERE img_id = "'.$img_id.'"');
+    while ($donnee = $reponse_user->fetch()){
+      if ($donnee['user_id'] == $user){
+        return (1);
+      }
+      return (0);
+    }
+  }
+}
 ?>

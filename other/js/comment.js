@@ -9,11 +9,13 @@ window.addEventListener("load", function() {
     var cancelButtons = document.getElementsByClassName("button is-text");
     for (var i = 0; i < cancelButtons.length; i++)
         cancelButtons[i].addEventListener('click', function() {
-            document.getElementById("input").value = '';
+            var id = this.id;
+            var num = id.match(/[a-z]+|\d+/ig);
+            document.getElementById("input" + num[2]).value = '';
             document.getElementById(this.parentNode.parentNode.id).classList.add('is-hidden');
         });
     var submitButtons = document.getElementsByClassName("button is-link submit");
-    for (var i = 1; i <= submitButtons.length; i++)
+    for (var i = 0; i < submitButtons.length; i++)
         submitButtons[i].addEventListener('click', function() {
             var id = this.parentNode.parentNode.id;
             var num = id.match(/[a-z]+|\d+/ig);
@@ -39,6 +41,6 @@ window.addEventListener("load", function() {
             document.body.appendChild(form);
             form.submit();
             document.getElementById(this.parentNode.parentNode.id).classList.add('is-hidden');
-            document.getElementById("input").value = '';
+            document.getElementById("input" + num[2]).value = '';
         });
 });

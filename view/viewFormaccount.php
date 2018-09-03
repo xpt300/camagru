@@ -1,6 +1,6 @@
 
 <div class="columns is-vcentered is-centered" style="margin: auto">
-    <div class="column has-text-centered">
+  <div class="column has-text-centered">
   <form action="./controleur/modif_login.php" method="post">
   <div class="field" style="width:300px">
     <label class="label has-text-light">Pour modifier ton login <i class="fas fa-angle-double-down"></i></label>
