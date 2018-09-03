@@ -74,6 +74,21 @@ class user{
       $headers = 'MIME-Version: 1.0'.$passage_ligne;
       $headers .= 'Content-type: text/html; charset=iso-8859-1'.$passage_ligne;
     }
+    else if ($var_mail == 3){
+      // Titre de l'email
+      $sujet = 'Camagru';
+
+      // Contenu du message de l'email
+      $message = '<html>';
+      $message .= '<head><title>Nouveau commentaire sur votre photo! CAMAGRU</title></head>';
+      $message .= '<body><center><p>Bonjour <strong>'.$prenom.'</strong><br />Vous venez de recevoir un nouvau commentaire sur l\'une de vos photos!</p></center></body>';
+      $message .= '</html>';
+      $message = wordwrap($message, 70, "\r\n");
+
+      // Pour envoyer un email HTML, l'en-tête Content-type doit être défini
+      $headers = 'MIME-Version: 1.0'.$passage_ligne;
+      $headers .= 'Content-type: text/html; charset=iso-8859-1'.$passage_ligne;
+    }
     // Fonction principale qui envoi l'email
     if (mail($mail, $sujet, $message, $headers)){
       return (1);
@@ -200,6 +215,33 @@ class user{
             return (2);
         }
     }
+    function delete_account($bdd, $user){
+        $reponse = $bdd->query('SELECT id FROM account WHERE login = "'.$user.'"');
+        $donnee = $reponse->fetch();
+        $req = $bdd->prepare('DELETE FROM account WHERE login = "'.$user.'"');
+        $req->execute();
+        $req = $bdd->prepare('DELETE FROM img WHERE user_id = "'.$donnee['id'].'"');
+        $req->execute();
+        $req = $bdd->prepare('DELETE FROM `like` WHERE user_id = "'.$donnee['id'].'"');
+        $req->execute();
+        $req = $bdd->prepare('DELETE FROM comment WHERE user_id = "'.$donnee['id'].'"');
+        $req->execute();
+    }
+    function prenom($bdd, $user){
+        $req = $bdd->query('SELECT prenom FROM account WHERE login= "'.$user.'"');
+        $donnee = $req->fetch();
+        return ($donnee['prenom']);
+    }
+    function mail($bdd, $user){
+        $req = $bdd->query('SELECT mail FROM account WHERE login = "'.$user.'"');
+        $donnee = $req->fetch();
+        return ($donnee['mail']);
+    }
+    function notification_user($bdd, $user){
+        $req = $bdd->query('SELECT notification FROM account WHERE login ="'.$user.'"');
+        $donnee = $req->fetch();
+        return ($donnee['notification']);
+    }
 }
 class img{
     function add_img($bdd, $user, $path){
@@ -273,6 +315,13 @@ class img{
       $img_id = $reponse_id->fetch();
       return ($img_id);
     }
+    function user_img($bdd, $path_img){
+        $req = $bdd->query('SELECT user_id FROM img WHERE path_img = "'.$path_img.'"');
+        $donnee = $req->fetch();
+        $req = $bdd->query('SELECT login FROM account WHERE id="'.$donnee['user_id'].'"');
+        $donnee = $req->fetch();
+        return ($donnee['login']);
+    }
 }
 class comment{
     function add_comment($bdd, $str, $user, $path_img){
@@ -289,6 +338,9 @@ class comment{
       while ($donnees = $reponse_content->fetch()){
         $content[$i] = $donnees['content'];
         $i++;
+      }
+      if ($i == 0){
+          return (0);
       }
       return ($content);
     }
@@ -310,6 +362,9 @@ class comment{
         $prenom[$i] = $prenom_tmp['prenom'];
         $i++;
       }
+      if ($i == 0){
+          return (0);
+      }
       return ($prenom);
     }
     function nb_comment($bdd, $img_id){
@@ -325,17 +380,23 @@ class like{
     return ($count_like);
   }
   function add_like($bdd, $img_id, $user){
-    $reponse_add = $bdd->prepare('INSERT INTO `like` VALUES (:user_id, :img_id)');
-    $reponse_add->execute(array('user_id' => $user,'img_id' => $img_id));
+    $user_id = $bdd->query('SELECT id FROM account WHERE login = "'.$user.'"');
+    $donnee = $user_id->fetch();
+    $reponse_add = $bdd->prepare('INSERT INTO `like` (user_id, img_id) VALUES (:user_id, :img_id)');
+    $reponse_add->execute(array('user_id' => $donnee['id'],'img_id' => $img_id));
   }
   function remove_like($bdd, $img_id, $user){
-    $reponse_add = $bdd->prepare('DELETE FROM `like` WHERE user_id = "'.$user.'"');
+    $user_id = $bdd->query('SELECT id FROM account WHERE login = "'.$user.'"');
+    $donnee = $user_id->fetch();
+    $reponse_add = $bdd->prepare('DELETE FROM `like` WHERE user_id = "'.$donnee['id'].'" AND img_id = "'.$img_id.'"');
     $reponse_add->execute();
   }
   function valid_like($bdd, $img_id, $user){
+    $user_id = $bdd->query('SELECT id FROM account WHERE login = "'.$user.'"');
+    $donnee = $user_id->fetch();
     $reponse_user = $bdd->query('SELECT user_id FROM `like` WHERE img_id = "'.$img_id.'"');
-    while ($donnee = $reponse_user->fetch()){
-      if ($donnee['user_id'] == $user){
+    while ($donnees = $reponse_user->fetch()){
+      if ($donnees['user_id'] == $donnee['id']){
         return (1);
       }
       return (0);

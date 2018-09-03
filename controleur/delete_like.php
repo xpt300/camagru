@@ -8,7 +8,7 @@ require_once('../config/setup.php');
 if (isset($_SESSION['user']) && $_SESSION['user'] != null){
   $bdd = database_co($DB_DNS, $DB_USER, $DB_PASSWORD);
   $var = new like;
-  $var->add_like($bdd, $_POST['name'], $_SESSION['user']);
+  $var->remove_like($bdd, $_POST['name'], $_SESSION['user']);
   print('success');
 }
 else {

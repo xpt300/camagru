@@ -40,15 +40,18 @@
                     <div class="box">
                         <div class="media-content">
                             <div class="content">
-                              <?php if (isset($_SESSION['user']) && $_SESSION['user'] != null && $like_user == 1) { ?>
+                              <?php if (isset($_SESSION['user']) && $like_user == 1) { ?>
                                 <i class="fas fa-heart" id="like_on_user<?php echo $a ?>" name="<?php echo $img_id.'-'.$_SESSION['user']?>" style="color: #ec4c63; display: block"></i>
                                 <i class="far fa-heart" id="like_off_user<?php echo $a ?>" name="<?php echo $img_id.'-'.$_SESSION['user']?>" style="display: none"></i>
                             <?php  }
-                              else { ?>
-                                <i class="far fa-heart" id="like_off<?php echo $a ?>" name="<?php echo $img_id.'-'.$_SESSION['user']?>" style="display: block"></i>
-                                <i class="fas fa-heart" id="like_on<?php echo $a ?>"  name="<?php echo $img_id.'-'.$_SESSION['user']?>" style="color: #ec4c63; display: none"></i>
+                              else if (isset($_SESSION['user'])){ ?>
+                                <i class="far fa-heart" id="like_off_user<?php echo $a ?>" name="<?php echo $img_id.'-'.$_SESSION['user']?>" style="display: block"></i>
+                                <i class="fas fa-heart" id="like_on_user<?php echo $a ?>"  name="<?php echo $img_id.'-'.$_SESSION['user']?>" style="color: #ec4c63; display: none"></i>
 
-                            <?php  } ?>
+                            <?php  }
+                            else { ?>
+                                <i class="far fa-heart" id="like_off<?php echo $a ?>" name="<?php echo $img_id.'-'.$_SESSION['user']?>" style="display: block"></i>
+                            <?php } ?>
                               <span>
                               <p>
                               <strong class="text" id="txt<?php echo $a ?>"><?php echo $count_like[0] ?> J'aime</strong>
@@ -60,8 +63,6 @@
                                     <p style="color: #3676d9"><i class="fas fa-comment-slash"></i> Aucun commentaire</p>
                                 </span>
                                 </center>
-                                    </div>
-                                  </div>
                                 <?php }
                                     else {
                                       $comment = 1;
@@ -79,9 +80,9 @@
                     ?>
                     <span class="comment_cache<?php echo $a ?>" style="display: none;">
                     <p>
-                    <strong><?php echo $prenom[$comment]?></strong>
+                    <strong> <?php echo $prenom[$comment] ?> </strong>
                     <br>
-                    <?php echo $content[$comment]?>
+                    <?php echo $content[$comment] ?>
                   </p>
                 </span>
               <?php
@@ -151,3 +152,4 @@
 <script src="other/js/comment_plus.js"></script>
 <script src="other/js/like_img.js"></script>
 <script src="other/js/notification_comment.js"></script>
+<script src="other/js/scroll.js"></script>
