@@ -41,6 +41,12 @@ else if (isset($_GET['mail'])){
   else if ($_GET['mail'] == 'account_probleme'){
     ?>Votre mail de validation ne marche pas veuillez contacter l'<strong>administrateur</strong> <i class="fas fa-envelope"></i>.<?php
   }
+  else if ($_GET['mail'] == 'change'){
+    ?>Votre mail à bien etait <strong>modifier</strong>.<?php
+}
+    else if ($_GET['mail'] == 'erreur'){
+      ?>Probleme pour modifier votre mail contacter l'<strong>administrateur</strong>.<?php
+    }
 }
 else if (isset($_GET['mdp'])){
   if ($_GET['mdp'] == 'erreur'){

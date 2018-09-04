@@ -5,14 +5,14 @@
         <div class="field" style="width:300px">
     <label class="label has-text-light">Name</label>
     <div class="control">
-      <input class="input" type="text" name="prenom" placeholder="Text input" required>
+      <input class="input" type="text" name="prenom" placeholder="Prenom" required>
     </div>
   </div>
 
   <div class="field" style="width:300px">
     <label class="label has-text-light">Username</label>
     <div class="control has-icons-left has-icons-right">
-      <input class="input is-danger" type="text" name="login" placeholder="Text input" required>
+      <input class="input is-danger" type="text" name="login" placeholder="Login" required>
       <span class="icon is-small is-left">
         <i class="fas fa-user"></i>
       </span>
@@ -25,7 +25,7 @@
   <div class="field" style="width:300px">
     <label class="label has-text-light">Email</label>
     <div class="control has-icons-left has-icons-right">
-      <input class="input is-danger" name="mail" type="email" placeholder="Email input" required>
+      <input class="input is-danger" name="mail" type="email" placeholder="Email" required>
       <span class="icon is-small is-left">
         <i class="fas fa-envelope"></i>
       </span>

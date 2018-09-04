@@ -115,22 +115,18 @@ class user{
      return (0);
    }
    function modif_login($bdd, $login){
-     $reponse_login = $bdd->query('SELECT login FROM account WHERE login = "'.$_SESSION['user'].'"');
-     $donnees = $reponse_login->fetch();
-     $reponse = $bdd->query('SELECT login FROM account');
-		while ($donnees = $reponse->fetch())
-		{
-			if ($donnees["login"] == $login){
-       return (2);
-			}
-		}
-     if ($_SESSION['user'] == $donnees['login']){
-       $req = $bdd->prepare("UPDATE account SET login= ? WHERE login= ?");
-       $req->execute(array($login, $_SESSION['user']));
-       $_SESSION['user'] = $login;
-       return (1);
-     }
-     return (0);
+        $reponse = $bdd->query('SELECT login FROM account WHERE login = "'.$_SESSION['user'].'"');
+        $donnees = $reponse->fetch();
+        if ($donnees["login"] == $login){
+                return (2);
+        }
+        if ($_SESSION['user'] == $donnees['login']){
+            $req = $bdd->prepare("UPDATE account SET login= ? WHERE login= ?");
+            $req->execute(array($login, $_SESSION['user']));
+            $_SESSION['user'] = $login;
+            return (1);
+        }
+        return (0);
    }
    function password_lost($mail, $bdd){
      $reponse_account = $bdd->query('SELECT `prenom`, `mail`, `login`, `mdp`, `key_user` FROM `account` WHERE mail = "'.$mail.'"');
