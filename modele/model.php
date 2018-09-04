@@ -36,6 +36,7 @@ class user{
 	}
   // fonction d'envoi de mail
   function send_mail($var_mail, $key_user, $mail, $prenom, $login){
+      $path = explode("/", getcwd());
   	if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $mail))
   	{
   		$passage_ligne = "\r\n";
@@ -51,7 +52,7 @@ class user{
       // Contenu du message de l'email
       $message = '<html>';
       $message .= '<head><title>New account CAMAGRU</title></head>';
-      $message .= '<body><center><p>Bonjour <strong>'.$prenom.'</strong><br />Merci de valider votre email:<br /><a href="http://localhost:8080/camagru/controleur/verification_account.php?code='.$key_user.'"><strong>VALIDATION</strong></a></p></center></body>';
+      $message .= '<body><center><p>Bonjour <strong>'.$prenom.'</strong><br />Merci de valider votre email:<br /><a href="http://localhost:8080/'.$path[6].'/controleur/verification_account.php?code='.$key_user.'"><strong>VALIDATION</strong></a></p></center></body>';
       $message .= '</html>';
       $message = wordwrap($message, 70, "\r\n");
 
@@ -66,7 +67,7 @@ class user{
       // Contenu du message de l'email
       $message = '<html>';
       $message .= '<head><title>Changement de Password CAMAGRU</title></head>';
-      $message .= '<body><center><p>Bonjour <strong>'.$prenom.'</strong><br />Merci de suivre ce lien pour changer votre mot de passe:<br /><a href="http://localhost:8080/camagru/change-password.php?code='.$key_user.'"><strong>CHANGER MOT DE PASSE</strong></a></p></center></body>';
+      $message .= '<body><center><p>Bonjour <strong>'.$prenom.'</strong><br />Merci de suivre ce lien pour changer votre mot de passe:<br /><a href="http://localhost:8080/'.$path[6].'/change-password.php?code='.$key_user.'"><strong>CHANGER MOT DE PASSE</strong></a></p></center></body>';
       $message .= '</html>';
       $message = wordwrap($message, 70, "\r\n");
 

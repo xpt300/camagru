@@ -7,7 +7,8 @@ require_once('../config/setup.php');
 if (isset($_SESSION['user']) && $_SESSION['user'] != null){
   $bdd = database_co($DB_DNS, $DB_USER, $DB_PASSWORD);
   $var = new comment;
-  $var->add_comment($bdd, $_POST['comment'], $_POST['user'], $_POST['image']);
+  $comment = htmlspecialchars($_POST['comment']);
+  $var->add_comment($bdd, $comment, $_POST['user'], $_POST['image']);
   $var = new user;
   $var_img = new img;
   $user = $var_img->user_img($bdd, $_POST['image']);
